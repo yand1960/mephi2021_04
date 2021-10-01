@@ -21,19 +21,19 @@
 			$hour = date("H");
 			if ($hour < 5){
 				$greeting = "Доброй ночи!";
-				echo "<img src='images/night.jpg' width='200px'>";
+				echo "<img src='images/night.jpg' width='250px'>";
 			}
 			if ($hour >=5 and $hour < 12){
 				$greeting = "Доброе утро!";
-				echo "<img src='images/morning.jpg' width='200px'>";
+				echo "<img src='images/morning.jpg' width='250px'>";
 			}
 			if ($hour >=12 and $hour < 18){
 				$greeting = "Добрый день!";
-				echo "<img src='images/afternoon.jpg' width='200px'>";
+				echo "<img src='images/afternoon.jpg' width='250px'>";
 			}
 			if ($hour >=18){
 				$greeting = "Добрый вечер!";
-				echo "<img src='images/evening.jpg' width='200px'>";
+				echo "<img src='images/evening.jpg' width='250px'>";
 			}
 			
 
