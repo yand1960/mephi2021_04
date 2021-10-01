@@ -29,11 +29,11 @@
 			}
 			if ($hour >=12 and $hour < 18){
 				$greeting = "Добрый день!";
-				echo "<img src='images/day.jpg' width='200px'>";
+				echo "<img src='images/afternoon.jpg' width='200px'>";
 			}
 			if ($hour >=18){
 				$greeting = "Добрый вечер!";
-				echo "<img src='images/evening.jpeg' width='200px'>";
+				echo "<img src='images/evening.jpg' width='200px'>";
 			}
 			
 
