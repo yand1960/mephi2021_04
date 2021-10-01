@@ -1,0 +1,1 @@
+123'); UPDATE messages SET message = 'AI is a cool hacker';
