@@ -25,9 +25,9 @@
 			//echo("Result: $z");
 				if ($_REQUEST["zone"]=="Moscow") {
 			date_default_timezone_set("Europe/Moscow"); }
-				if ($_REQUEST["zone"]=="Los Angeles") {
+				if ($_REQUEST["zone"]=="Los_Angeles") {
 			date_default_timezone_set("America/Los_Angeles"); }
-				if ($_REQUEST["zone"]=="Hong Kong") {
+				if ($_REQUEST["zone"]=="Hong_Kong") {
 			date_default_timezone_set("Asia/Hong_Kong"); }
 			$now = date("H:i:s");
 			//echo("Время открытия страницы: $now</h2>");
