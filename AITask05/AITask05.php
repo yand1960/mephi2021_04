@@ -19,6 +19,7 @@
 		
 		<?php
 			
+			
 			if(isset($_REQUEST["zone"]))
 				$zone=$_REQUEST["zone"];
 			
@@ -34,8 +35,17 @@
 			}
 			
 			$now=date("H:i:s");
+			$hour = date("H");
+			if ($hour<5)
+				$greeting="Доброй ночи!";
+			if ($hour>=5 and $hour<12)
+				$greeting="Доброе утро!";
+			if ($hour>=12 and $hour<18)
+				$greeting="Добрый день!";
+			if ($hour>=18)
+				$greeting="Добрый вечер!";
 		?>
-		<h2>В <?=$zone?> сейчас <?=$now?></h2>
-
+		<h2>Последний раз страница была открыта в  <?=$now?></h2>
+		<h1><?=$greeting?></h1>
 	</body>
 </html>
