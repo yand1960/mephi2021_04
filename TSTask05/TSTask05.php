@@ -21,8 +21,18 @@
       $x = 2;
       $y = 3;
       $z = $x + $y;
+
+    
       //echo("Result: $z");
-      $selectOption = $_GET['zone'];
+    // Выбран ли хоть один город
+    if(isset($_GET['zone'])) {
+     $selectOption = $_GET['zone'];
+    }
+    // Defaul zone
+    else {
+        
+        $selectOption = "Europe/Moscow";
+    }
       date_default_timezone_set($selectOption);
       //date_default_timezone_set("America/Los_Angeles");
       //date_default_timezone_set("Asia/Hong_Kong");
