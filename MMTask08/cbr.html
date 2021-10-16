@@ -1,0 +1,44 @@
+<html>
+    <head>
+        <title>CBR</title>
+    </head>
+    <body onload="CBR()">
+        <h1 style="text-align: center;">Курс:</h1>
+        <div style="border: 2px solid black; width: 500px; text-align: center; display: block; margin-left: auto; margin-right: auto; margin-top: 100px;">
+            <div id="dollar_el">
+
+            </div>
+            <div id="nok_el">
+
+            </div>
+            <div id="euro_el">
+
+            </div>
+        </div>
+        <script>
+            function CBR(){
+                var url = "https://www.cbr-xml-daily.ru/daily_json.js";
+                var xhr = new XMLHttpRequest();
+                console.log(xhr);
+                xhr.open("GET",url, false);
+                xhr.send();
+                var result = xhr.responseText;
+                console.log(result);
+                var results = JSON.parse(result);
+                var dollar_value = "<p>Курс доллара: " + results.Valute.USD.Value + "</p>";
+                var euro_value = "<p>Курс евро: " + results.Valute.EUR.Value + "</p>";
+                var nok_value = "<p>Курс норвежской кроны: " + results.Valute.NOK.Value + "</p>";
+                document.getElementById("dollar_el").innerHTML = dollar_value;
+                document.getElementById("euro_el").innerHTML = euro_value;
+                document.getElementById("nok_el").innerHTML = nok_value;
+            }
+        </script>
+        <div>
+            <hr style="margin-top: 100px;"/>
+        </div>
+        <footer style="text-align: center;">
+            Михаил Мокшин ©
+            All rights reserved
+        </footer>
+    </body>
+</html>
