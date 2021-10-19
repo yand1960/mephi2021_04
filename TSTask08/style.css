@@ -1,0 +1,107 @@
+@import url('https://fonts.googleapis.com/css?family=Orbitron');
+
+*,
+*::before,
+*::after {
+  padding: 0;
+  margin: 0;
+  border: 0;
+  box-sizing: border-box;
+}
+
+a {
+  text-decoration: none;
+}
+
+ul,
+ol,
+li {
+  list-style: none;
+}
+
+img {
+  vertical-align: top;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: inherit;
+  font-size: inherit;
+}
+s html,
+body {
+  height: 100%;
+  line-height: 1;
+  font-size: 16px;
+  background-color: #333;
+  color: #fff;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.wrapper {
+  min-height: 100%;
+}
+
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 10;
+  background-color: #8cbdf53d;
+}
+
+.header__container {
+  max-width: 1200px;
+  margin: 0px auto;
+  padding: 0px 30px;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 70px;
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+}
+
+.value__box {
+  margin: 5px;
+  padding: 5px;
+  flex: 0 1 auto;
+}
+
+/* Only for 1st box in flex container */
+.value__box:nth-child(1) {
+  align-self: auto;
+  margin: 5px;
+  padding: 5px;
+  flex: 0 1 60%;
+  text-align: left;
+}
+
+.title {
+  font-size: 25px;
+  font-weight: bold;
+  font-style: none;
+  font-family: 'Orbitron', sans-serif, monospace;
+  color: #66ff99;
+}
+
+#clock {
+  font-family: 'Orbitron', sans-serif;
+  color: #66ff99;
+  font-size: 120px;
+  text-align: center;
+  padding-top: 20%;
+  padding-bottom: 20%;
+}
+
+@media (min-width: 768px) {
+  #clock {
+    font-size: 90px;
+  }
+}
