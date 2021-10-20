@@ -1,0 +1,40 @@
+<html>
+	<head>
+		<title>Exchange rates</title>
+		<meta charset="utf-8"/>
+		<script>
+			function rates() {
+				var url = "https://www.cbr-xml-daily.ru/daily_json.js";
+				console.log(url);
+				var xhr = new XMLHttpRequest();
+				xhr.open("GET",url,false);
+				xhr.send();
+				var result = xhr.responseText;
+				console.log(result);
+				var rates = JSON.parse(result);
+				console.log(rates);
+				var out="";
+
+				
+                var USD = (rates.Valute.USD.Value);
+                document.getElementById("USD").innerHTML = "USD: " + USD;
+
+                var EUR = (rates.Valute.EUR.Value);
+                document.getElementById("EUR").innerHTML = "EUR: " + EUR;
+
+                var ZAR = (rates.Valute.ZAR.Value);
+                document.getElementById("ZAR").innerHTML = "ZAR: " + ZAR;
+            }
+		</script>
+	</head>
+	<body onload="rates();">
+	
+		<h1>Exchange rates</h1>
+        <table border="10">
+            <tr id="USD"></tr>
+            <tr id="EUR"></tr>
+            <tr id="ZAR"></tr>
+        </table>
+
+
+
