@@ -1,0 +1,77 @@
+<html>
+
+<head>
+    <title>Курсы</title>
+    <meta charset="utf-8" />
+    <style>
+        table * {
+            white-space: nowrap;
+        }
+
+    </style>
+
+
+
+
+</head>
+
+<body>
+    <div class="m-4">
+        <h1 id="time"></h1>
+        <div class="table-responsive"> 
+            <table class="table">
+                <thead>
+                    <tr id="TH">
+                </thead>
+                <tbody id="TC">
+                </tbody>
+            </table>
+        </div> 
+    </div>
+
+</body>
+    
+	<script> 
+	var url = "https://www.cbr-xml-daily.ru/daily_json.js";
+
+    var xhr = new XMLHttpRequest();
+    xhr.open("GET", url, false);
+    xhr.send();
+    var result = JSON.parse(xhr.response);
+    console.log(result);
+    document.getElementById("time").innerText = result.Timestamp
+    var TC = document.getElementById("TC")
+    var TH = document.getElementById("TH")
+
+	var cell = document.createElement("td");
+        cell.innerText = "CharCode";
+		TC.appendChild(cell);
+		cell=document.createElement("td");
+		cell.innerText = "Nominal";
+		TC.appendChild(cell);
+		cell=document.createElement("td");
+		cell.innerText = "Name";
+		TC.appendChild(cell);		
+		cell=document.createElement("td");
+		cell.innerText = "Value";
+		TC.appendChild(cell);
+ 		cell=document.createElement("td");
+		cell.innerText = "Previous";
+		TC.appendChild(cell);       
+           
+
+    var getNewCell = (el, container) => {
+        
+    }
+    for (var value of Object.values(result.Valute)){
+        
+        var child = document.createElement("tr");
+        [value.CharCode, value.Nominal, value.Name, value.Value, value.Previous].forEach(el => {
+            cell=document.createElement("td");
+			cell.innerText = el;
+			child.appendChild(cell); 
+        })
+        TC.appendChild(child)
+    }
+	</script>
+</html>
