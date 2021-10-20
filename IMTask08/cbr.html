@@ -1,0 +1,60 @@
+<html>
+	<head>
+		<title>Exchange rates</title>
+		<meta charset="utf-8"/>
+		<script>
+			function getRates() {
+				var url = "https://www.cbr-xml-daily.ru/daily_json.js";
+				console.log(url);
+				var xhr = new XMLHttpRequest();
+				xhr.open("GET",url,false);
+				xhr.send();
+				var result = xhr.responseText;
+				console.log(result);
+				var rates = JSON.parse(result);
+				console.log(rates);
+				var out="";
+
+				
+                var rateUSD = (rates.Valute.USD.Value);
+                var textUSD = "Курс доллара: ";
+                document.getElementById("rateUSD").innerHTML = rateUSD;
+                document.getElementById("textUSD").innerHTML = textUSD;
+
+                var rateEUR = (rates.Valute.EUR.Value);
+                var textEUR = "Курс евро: ";
+                document.getElementById("rateEUR").innerHTML = rateEUR;
+                document.getElementById("textEUR").innerHTML = textEUR;
+
+                var rateGBP = (rates.Valute.USD.Value);
+                var textGBP = "Курс стерлинга: ";
+                document.getElementById("rateGBP").innerHTML = rateGBP;
+                document.getElementById("textGBP").innerHTML = textGBP;
+
+                var date = new Date();
+                var day = date.getDay();
+                var month = date.getMonth();
+                var year = date.getFullYear();
+                var hours = date.getHours();
+                var minutes = date.getMinutes();
+                document.getElementById("datenow").innerHTML = "Exchange rates at " + day + "." + month + "." + year + "  " + hours + ':' + minutes;
+            }
+		</script>
+	</head>
+	<body onload="getRates();">
+	
+		<h1 id="datenow"></h1>
+
+		<table border="1">
+            <tr>
+                <td id="textUSD"></td>
+                <td id="rateUSD"></td>
+            </tr>
+            <tr>
+                <td id="textEUR"></td>
+                <td id="rateEUR"></td>
+            </tr>
+            <tr>
+                <td id="textGBP"></td>
+                <td id="rateGBP"></td>
+            </tr>
