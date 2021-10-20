@@ -1,0 +1,45 @@
+<html>
+	<head>
+		<title>Курс валют</title>
+		<meta charset="utf-8"/>
+		<script>
+			function getCourse() {
+				var url = "https://www.cbr-xml-daily.ru/daily_json.js";
+				console.log(url);
+				var xhr = new XMLHttpRequest();
+				xhr.open("GET",url,false);
+				xhr.send();
+				var result = xhr.responseText;
+				console.log(result);
+				var rates = JSON.parse(result);
+				console.log(rates);
+				var out="";
+				
+                var USD = (rates.Valute.USD.Value);
+                document.getElementById("USD").innerHTML = USD;
+
+                var EUR = (rates.Valute.EUR.Value);
+                document.getElementById("EUR").innerHTML = EUR;
+
+                var CNY = (rates.Valute.CNY.Value);
+                document.getElementById("CNY").innerHTML = CNY;
+            }
+		</script>
+	</head>
+	<body onload="getCourse();">
+	
+		<h1>Курс валют</h1>
+
+		<table border="3" style="border-color: #00FA9A;">
+            <tr>
+                <td>Курс доллара  </td>
+                <td id="USD"></td>
+            </tr>
+            <tr>
+                <td>Курс евро  </td>
+                <td id="EUR"></td>
+            </tr>
+            <tr>
+                <td>Курс юаней  </td>
+                <td id="CNY"></td>
+            </tr>
