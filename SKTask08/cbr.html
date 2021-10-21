@@ -1,0 +1,63 @@
+<html>
+
+<head>
+    <title>Home page</title>
+    <meta charset="utf-8" />
+	
+	   <style>
+        table,h1 {
+            color: rgb(10, 51, 48);
+        }
+        
+    </style>
+</head>
+
+<body>
+    <div class="crb">
+        <h1>Курсы валют на сегодня в рублях</h1>
+        <div class="table-responsive"> 
+            <table class="table">
+                <thead>
+                    <tr id="headers">
+                </thead>
+                <tbody id="tableBody">
+                </tbody>
+            </table>
+        </div> 
+    </div>
+
+</body>
+    
+	<script> 
+	var xmlHttpRequest = new XMLHttpRequest();
+    xmlHttpRequest.open("GET", "https://www.cbr-xml-daily.ru/daily_json.js", false);
+    xmlHttpRequest.send();
+    var result = JSON.parse(xmlHttpRequest.response);
+
+    var tableBody = document.getElementById("tableBody")
+    var headers = document.getElementById("headers")
+
+    var home = ["Аббревиатура","Валюта","Стоимость на сегодня"]
+    console.log(home)
+    home.forEach(el => {
+       var cell = document.createElement("td"); 
+        cell.innerText = el;
+		tableBody.appendChild(cell); 
+    })     
+
+    for (var value of Object.values(result.Valute)){
+        
+        var child = document.createElement("tr");
+        if(value.CharCode === "USD" || value.CharCode === "EUR" || value.CharCode === "CNY"){
+            [value.CharCode, value.Name, value.Value].forEach(el => {
+    
+            cell=document.createElement("td");
+            cell.innerText = el;
+            child.appendChild(cell); 
+        })
+        tableBody.appendChild(child)  
+        }
+       
+    }
+	</script>
+</html>
