@@ -1,0 +1,90 @@
+.div-border{
+    border:2px solid rgba(191, 203, 211, 0.74);
+    border-radius: 10px;
+    margin-top: 10px; 
+    width: 200px;
+    padding-top: 10px;
+   
+}
+.huligan{
+    display: flex;
+    flex-direction: column;
+}
+body{
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+.width1{
+    border:2px solid rgb(107, 142, 35);
+    border-radius: 10px;
+    margin-left:18px;
+    width: 80px;
+    padding-left: 5px;
+    padding-top: 10px; 
+}
+
+.width2{
+    border:2px solid rgb(107, 142, 35);
+    border-radius: 10px;
+    
+    width: 80px;
+    padding-left: 5px;
+    padding-top: 10px; 
+}
+
+.width3{
+    border:2px solid rgba(107, 142, 35);
+    border-radius: 10px;
+    margin-left:18px;
+    margin-top:10px;
+    width: 163px;
+    padding-left: 5px;
+    padding-top: 10px; 
+    margin-bottom: 10px;
+
+}
+
+.button1{
+    border:2px solid rgba(248, 185, 125);
+    border-radius: 10px;
+    margin-top: 10px;
+    margin-left: 18px; 
+    width: 80px;
+    padding-left: 5px;
+    padding-top: 5px; 
+}
+
+.button2{
+    border:2px solid rgba(248, 185, 125);
+    border-radius: 10px;
+    margin-top: 10px; 
+    width: 80px;
+    padding-left: 5px;
+    padding-top: 5px;
+}
+
+.button3{
+    border:2px solid rgba(248, 185, 125);
+    border-radius: 10px;
+    margin-top: 10px;
+    margin-left: 18px;
+    width: 80px;
+    padding-left: 5px;
+    padding-top: 5px;
+}
+
+.button4{
+    border:2px solid rgba(248, 185, 125);
+    border-radius: 10px;
+    margin-top: 10px; 
+    width: 80px;
+    padding-left: 5px;
+    padding-top: 5px;
+}
+.hide{
+    display: none;
+
+}

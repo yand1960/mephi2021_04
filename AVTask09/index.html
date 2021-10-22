@@ -1,0 +1,38 @@
+<html>
+	<head>
+		<title>Calc</title>
+		<meta charset="utf-8" /> 
+        <link rel = "stylesheet" href = "styles/style.css"/>
+        <link rel = "stylesheet" href = "styles/animate.min.css"/>
+
+	</head>
+	<body>
+        <div class="huligan" >
+		<h1 id="hh" class = "animate__animated animate__bounce">Калькулятор</h1>
+		
+		<div id="card" class = "div-border">
+		<input type="number" id="x" class = "width1" /> 
+		<input type="number" id="y" class = "width2" />  
+		<button id="Plus" onclick = "fPlus()" class= "button1 animate__animated" >
+            +
+        </button> 
+        <button id="Minus" onclick = "fMinus()" class= "button2 animate__animated">
+            -
+        </button> 
+        <button id="Multiplication" onclick = "fMultiplication()" class ="button3">
+            *
+        </button>
+        <button id="Division" onclick = "fDivision()" class= "button4 animate__animated">
+            /
+        </button> 
+		<input type= "number" id = "result" class = "width3 animate__animated"/>
+        <div id = "ErrorBlock" class = "hide">
+            <p id = "Error">На ноль делить нельзя</p>
+        </div>
+        </div>
+        </div>
+		<script src = "scripts/script.js">
+
+        </script>
+	</body>
+</html>
