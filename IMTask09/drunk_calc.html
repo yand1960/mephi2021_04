@@ -1,0 +1,131 @@
+<html>
+	<head>
+		<title>Calc</title>
+		<meta charset="utf-8"/>
+
+		<style>
+			.wrapper {
+			margin: 0 100px;
+			background: #858585;
+			overflow: hidden;
+			width: 250px;
+			height: 270px;
+			border-radius: 10px;
+			border: 1px solid #949493;
+			box-shadow: 3px 3px 7px #000;
+			}
+			.display {
+			background: #ccc;
+			margin: 10px 25px;
+			overflow: hidden;
+			width: 200px;
+			height: 30px;
+			border-radius: 5px;
+			font-size: 24px;
+			}
+			.display1 {
+			background: #ccc;
+			margin: 0px 25px;
+			overflow: hidden;
+			width: 200px;
+			height: 40px;
+			border-radius: 5px;
+			font-size: 24px;
+			}
+			input[type="number"]::-webkit-inner-spin-button {
+			display: none;
+			}
+			.buttons {
+			background: #269494;
+			margin: 10px 35px;
+			overflow: hidden;
+			width: 50px;
+			height: 50px;
+			border-radius: 5px;
+			font-size: 30px;
+			transition-property: transform;
+            transition-duration: 1s;
+			}
+			.btn {
+			background: #ff0000;
+			margin: 0 50px;
+			overflow: hidden;
+			width: 350px;
+			height: 50px;
+			border-radius: 5px;
+			font-size: 30px;
+			}
+			.invis {
+			background: red;
+			margin: 0 110px;
+			overflow: hidden;
+			width: 30px;
+			height: 50px;
+			border-radius: 5px;
+			font-size: 24px;
+			}
+		</style>
+
+		<script>
+			function plus() {
+				var x = Number(document.getElementById("x").value);
+				var y = Number(document.getElementById("y").value);
+				var result = x+y;
+				document.getElementById("result").value = result;
+				document.getElementById("tongue").type = "visible";
+				document.getElementById("hat").type = "visible";
+				
+				document.getElementById("pl").style.transform = "rotate(-30deg)";
+				document.getElementById("min").style.transform = "rotate(30deg)";
+
+				window.setTimeout(function(){
+					document.getElementById("hat").type = "hidden";
+					document.getElementById("tongue").type = "hidden";
+					document.getElementById("x").value = "";
+					document.getElementById("y").value = "";
+					document.getElementById("result").value = "";
+					document.getElementById("pl").style.transform = "rotate(0deg)";
+					document.getElementById("min").style.transform = "rotate(0deg)";
+				}, 5000);
+			}
+			function minus() {
+				var x = Number(document.getElementById("x").value);
+				var y = Number(document.getElementById("y").value);
+				var result = x-y;
+				document.getElementById("result").value = result;
+				document.getElementById("tongue").type = "visible";
+				document.getElementById("hat").type = "visible";
+				document.getElementById("pl").style.transform = "rotate(-30deg)";
+				document.getElementById("min").style.transform = "rotate(30deg)";
+				window.setTimeout(function(){
+					document.getElementsByClassName("display").value = null;
+					document.getElementById("hat").type = "hidden";
+					document.getElementById("tongue").type = "hidden";
+					document.getElementById("x").value = "";
+					document.getElementById("y").value = "";
+					document.getElementById("result").value = "";
+					document.getElementById("pl").style.transform = "rotate(0deg)";
+					document.getElementById("min").style.transform = "rotate(0deg)";
+				}, 5000);
+			}
+		</script>
+		
+	</head>
+	<body>
+	
+		<h1>Caclulator</h1>
+
+		<input disabled class="btn" id="hat" value="          Wait for 5 sec!" type="hidden"/>
+		
+		<form class="wrapper" id="forma" onsubmit="return false">
+			<input class="display" type="number" id="x"/> <br/>
+			<input class="display" type="number" id="y"/> <br/>
+			<input class="buttons" id="pl" type="submit" value="+" onclick="plus();"/>
+			<input class="buttons" id="min" type="submit" value="-" onclick="minus();"/> <br/>
+			<input disabled class="display1" type="number" id="result"/> <br/>
+			<input disabled class="invis" type="hidden" id="tongue"/>
+		</form>
+		
+		
+	</body>
+</html>
