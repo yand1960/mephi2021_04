@@ -1,0 +1,45 @@
+.btn {
+    width: 30px;
+    height: 30px;
+    background: #fc0;
+    display: inline-block;
+    text-align: center;
+    line-height: 28px;
+}
+
+.btn:hover {
+    background: #f70;
+    color: #fff;
+}
+
+.calc-wrapper {
+    padding: 30px;
+    text-align: center;
+}
+.calc {
+    background: #bff5ef;
+    border:3px solid green;
+    border-radius: 5px;
+    display: inline-block;
+    padding: 0 50px 50px 50px;
+}
+
+input {
+    padding:5px;
+    border:2px solid #ccc;
+    border-radius: 5px;
+}
+
+input:focus {
+    border-color:#333;
+}
+
+@keyframes pulsate {
+    50% { color: #06bf9d; text-shadow: 0 -2px rgba(0,0,0,.3), 0 0 5px #ffd, 0 0 8px #fff; }
+}
+#calc-title {
+    font-size: 3em;
+    color: #eba02f;
+    text-shadow: 0 -2px rgba(0,0,0,.1);
+    animation: pulsate 1.2s linear infinite;
+}
