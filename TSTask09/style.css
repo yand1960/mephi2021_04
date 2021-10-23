@@ -1,0 +1,78 @@
+@import url("https://fonts.googleapis.com/css?family=Orbitron");
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  font-family: "Orbitron", sans-serif, monospace;
+  font-weight: Bold;
+}
+
+body {
+  padding: 0;
+  margin: 0;
+  background: radial-gradient(#3535b8, #131a3a);
+}
+
+.calculator-grid {
+  display: grid;
+  justify-content: center;
+  align-content: center;
+  min-height: 100vh;
+  grid-template-columns: repeat(4, 100px);
+  grid-template-rows: minmax(120px, auto) repeat(5, 100px);
+}
+
+.calculator-grid > button {
+  cursor: pointer;
+  font-size: 2.5rem;
+  border: 1px solid white;
+  outline: none;
+  background-color: rgba(255, 255, 255, 0.75)
+}
+
+.calculator-grid > button:hover {
+  background-color: rgba(50, 235, 44, 0.637);
+  box-shadow: 0px 15px 25px -5px rgba(darken(dodgerblue, 40%));
+  transform: scale(1.03);
+  transition-duration: .5s;
+}
+
+.calculator-grid > button:active {
+  background-color: rgba(58, 38, 29, 0.637);
+  box-shadow: 0px 4px 8px rgba(darken(dodgerblue, 30%));
+  transform: scale(.93);
+  transition-duration: .5s;
+}
+
+.span-two {
+  grid-column: span 2;
+}
+
+.reset {
+  color:#dd1111c7;
+}
+
+.equals {
+  color:#1c03f7c7;
+}
+
+.output {
+  grid-column: 1 / -1;
+  background-color: rgba(0, 0, 0, 0.75);
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  flex-direction: column;
+  padding: 10px;
+  word-wrap: break-word;
+  word-break: break-all;
+}
+
+.output .previous-operand {
+  color: rgba(255, 255, 255, 0.75);
+  font-size: 1.5rem;
+}
+
+.output .current-operand {
+  color: white;
+  font-size: 2.5rem;
+}
