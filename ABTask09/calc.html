@@ -7,10 +7,35 @@
 			input {
 				width: 100px;
                 height: 30px;
-				margin: 10px;
-				background: #e9c2e7;
+				margin: 5px 10px;
+				background: pink;
 				transition-property: transform;
-                transition-duration: 1.5s;
+                transition-duration: 3s;
+			}
+			#num1 {
+				width: 500px;
+				transition-duration: 0.5s;
+			}
+			#num2 {
+				width: 300px;
+				transition-duration: 0.5s;
+			}
+			#pl {
+				margin: 10px 10px;
+				transition-duration: 0.5s;
+			}
+			#min {
+				margin: 10px 10px;
+				transition-duration: 0.5s;
+			}
+			#result {
+				background: black;
+				color: white;
+			}
+			#res {
+				background: #303030;
+				color: white;
+				transition-duration: 2s;
 			}
 		</style>
 
@@ -21,27 +46,38 @@
 				var result = x+y;
 				document.getElementById("result").value = result;
 				document.getElementById("result").type = "number";
-				document.getElementById("min").type = "hidden";
 				document.getElementById("res").type = "submit";
-				document.getElementById("pl").style.background = "linear-gradient(90deg, white, #2dffd2)";
+				document.getElementById("num1").style.transform = "rotate(-5deg)";
+				document.getElementById("num2").style.transform = "rotate(-5deg)";
+				document.getElementById("pl").style.transform = "rotate(-5deg)";
+				document.getElementById("min").style.transform = "rotate(-5deg)";
+				window.setTimeout(function(){
+					document.getElementById("num1").style.transform = "rotate(0deg)";
+					document.getElementById("num2").style.transform = "rotate(0deg)";
+					document.getElementById("pl").style.transform = "rotate(0deg)";
+					document.getElementById("min").style.transform = "rotate(0deg)";
+				}, 500);
+				window.setTimeout(function(){
+					document.getElementById("result").style.transform = "translate(400px)";
+				}, 100);
+				
 			}
 
 			function renew() {
 				document.getElementById("num1").value = "";
 				document.getElementById("num2").value = "";
 				document.getElementById("result").value = "";
-				document.getElementById("pl").style.background = "#e9c2e7";
-				document.getElementById("min").style.background = "#e9c2e7";
 				document.getElementById("result").type = "hidden";
-				document.getElementById("res").type = "hidden";
 				document.getElementById("min").type = "submit";
 				document.getElementById("pl").type = "submit";
-				document.getElementById("num1").style.transform = "rotate(180deg)";
-				document.getElementById("num2").style.transform = "rotate(-180deg)";
+				document.getElementById("result").style.transform = "translate(0px)";
+				document.getElementById("res").style.transform = "translateY(200px)";
 				window.setTimeout(function(){
-					document.getElementById("num1").style.transform = "rotate(0deg)";
-					document.getElementById("num2").style.transform = "rotate(0deg)";
-				}, 1500);
+					document.getElementById("res").style.transform = "translateY(0px)";
+				}, 2000);
+				window.setTimeout(function(){
+					document.getElementById("res").type = "hidden";
+				}, 4000);
 
 			}
 			
@@ -51,13 +87,21 @@
 				var result = x-y;
 				document.getElementById("result").value = result;
 				document.getElementById("result").type = "number";
-				document.getElementById("pl").type = "hidden";
 				document.getElementById("res").type = "submit";
-				document.getElementById("min").style.background = "linear-gradient(90deg, white, #2dffd2)";
-
+				document.getElementById("num1").style.transform = "rotate(-5deg)";
+				document.getElementById("num2").style.transform = "rotate(-5deg)";
+				document.getElementById("pl").style.transform = "rotate(-5deg)";
+				document.getElementById("min").style.transform = "rotate(-5deg)";
 				window.setTimeout(function(){
-
-				}, 5000);
+					document.getElementById("result").style.transform = "translate(400px)";
+					document.getElementById("num1").style.transform = "rotate(0deg)";
+					document.getElementById("num2").style.transform = "rotate(0deg)";
+					document.getElementById("pl").style.transform = "rotate(0deg)";
+					document.getElementById("min").style.transform = "rotate(0deg)";
+				}, 500);
+				window.setTimeout(function(){
+					document.getElementById("result").style.transform = "translate(400px)";
+				}, 100);
 			}
 		</script>
 		
@@ -67,12 +111,12 @@
 		<h1>Калькулятор</h1>
 		
 
-		<input type="number" id="num1"/> 
+		<input type="number" id="num1"/> <input disabled type="hidden" id="result"/> <br/>
 		<input type="number" id="num2"/> <br/>
-		<input id="pl" type="submit" value="+" onclick="plus();"/>
-		<input id="res" type="hidden" value="Новый расчет" onclick="renew();"/>
+		<input id="pl" type="submit" value="+" onclick="plus();"/> <br/>
 		<input id="min" type="submit" value="-" onclick="minus();"/> <br/>
-		<input disabled type="hidden" id="result"/> <br/>
+		<input id="res" type="hidden" value="Новый расчет" onclick="renew();"/> 
+		 
 
 		
 		
