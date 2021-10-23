@@ -1,0 +1,167 @@
+<html>
+	<head>
+		<title>Calc</title>
+		<meta charset="utf-8">
+		<style>
+
+			html {
+				
+				background-image: url(images/cats_play.jpg);
+
+
+			}
+
+			#calc {
+				color: rgb(233, 107, 128);
+			}
+
+			#cot {
+				background: transparent;
+  				border: none;
+				margin-left: 625px;
+				color: rgb(233, 107, 128);
+				width: 250px;
+				font-size: 16px;
+			}
+            
+            #x {
+                background: linear-gradient(45deg,white, #e5ff00);
+				border-radius: 20px;
+				margin: 5px;
+				border-color: rgb(233, 107, 128);
+				
+				
+            }
+            #y
+            {
+                
+                background: linear-gradient(45deg,white, #aafff1);
+				border-radius: 20px;
+				margin: 5px; 
+				border-color: rgb(233, 107, 128);
+            }
+            #pluss {
+                background: rgb(218, 62, 0);
+				border-radius: 50px;
+				width:30px;
+				margin: 5px; 
+				margin-left: 70px;
+				border-color: rgb(233, 107, 128);
+                
+            }
+			#minuss {
+				background: rgb(101, 101, 153);
+				border-radius: 50px;
+				width:30px;
+				margin: 5px; 
+				margin-left: 70px;
+				border-color: rgb(233, 107, 128);
+
+			}
+			#result {
+				background: linear-gradient(45deg,white, #f8aaff);
+				border-radius: 20px;
+				margin: 5px; 
+				border-color: rgb(233, 107, 128);
+			}
+			input[type="number"]::-webkit-inner-spin-button {
+				display: none;
+			}
+        </style>
+		<script>
+			function plus() {
+				var x = Number(document.getElementById("x").value);
+				var y = Number(document.getElementById("y").value);
+          		var result = x + y;
+				document.getElementById("cot").type = "visible";
+
+         		document.getElementById("result").value = result;
+          		}
+
+			function minus() {
+				var x = Number(document.getElementById("x").value);
+				var y = Number(document.getElementById("y").value);
+          		var result = x - y;
+				document.getElementById("cot").type = "visible";
+
+         		document.getElementById("result").value = result;
+          		}
+
+			var x = 0;
+            var y = 0;
+			var pluss = 0;
+			var minuss = 0;
+			var result = 0;
+			
+            
+            
+            function move() {
+                if (document.getElementById("x").value == "") 
+					x = 0;
+				else
+					x = 650;
+                document.getElementById("x").style.transform 
+                            = `translate(${x}px)`;
+				if (document.getElementById("y").value == "") 
+					y = 0;
+				else
+					y = 650;
+                document.getElementById("y").style.transform 
+                            = `translate(${y}px)`;   
+            }
+			function movve() {
+				pluss = 650;
+				document.getElementById("pluss").style.transform 
+                            = `translate(${pluss}px)`;
+                document.getElementById("result").style.transform 
+                            = `translate(650px)`;
+				
+			}
+			function movemin() {
+				minuss = 650;
+				document.getElementById("minuss").style.transform 
+                            = `translate(${minuss}px)`;
+				document.getElementById("result").style.transform 
+                            = `translate(650px)`;
+			}
+			function returne() {
+				if (document.getElementById("result").value != "") {
+                	setTimeout(function(){
+                	document.getElementById("x").style.transform = `translate(0px)`;
+					document.getElementById("y").style.transform = `translate(0px)`;
+					document.getElementById("pluss").style.transform = `translate(0px)`;
+					document.getElementById("minuss").style.transform = `translate(0px)`;
+					document.getElementById("result").style.transform = `translate(0px)`;
+					document.getElementById("x").value = "";
+					document.getElementById("y").value = "";
+					document.getElementById("result").value = "";
+					document.getElementById("cot").type = "hidden";
+                	}, 2800);
+				} 
+			}
+			
+		</script>
+		
+	</head>
+	<body>
+		<h1 id="calc">Калькулятор</h1>
+		
+		
+			<input id="cot" type="hidden" value="Котики довольны результатом!"/><br />
+			<input type="number" id="x" onkeyup="move();"/> <br />
+			<input type="number" id="y" onkeyup="move();"/> <br />
+			<input type="submit" id = "pluss" value="+"  onclick="plus(); movve(); returne();"/> <br />
+			<input type="submit" id = "minuss" value="-" onclick="minus(); movemin(); returne();"/> <br />
+			<input type="number" id = "result"/> <br />
+	
+		
+		
+	</body>
+
+
+</html>
+
+
+
+
+
