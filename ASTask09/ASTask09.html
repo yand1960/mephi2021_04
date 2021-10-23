@@ -1,0 +1,81 @@
+<html>
+	<head>
+		<title>Calc</title>
+		<meta charset="utf-8"/>
+
+		<style>
+			input {
+				width: 100px;
+                height: 30px;
+				margin: 10px;
+				background: #e9c2e7;
+				transition-property: transform;
+                transition-duration: 1.5s;
+			}
+		</style>
+
+		<script>
+			function plus() {
+				var x = Number(document.getElementById("num1").value);
+				var y = Number(document.getElementById("num2").value);
+				var result = x+y;
+				document.getElementById("result").value = result;
+				document.getElementById("result").type = "number";
+				document.getElementById("min").type = "hidden";
+				document.getElementById("res").type = "submit";
+				document.getElementById("pl").style.background = "linear-gradient(90deg, white, #2dffd2)";
+			}
+
+			function renew() {
+				document.getElementById("num1").value = "";
+				document.getElementById("num2").value = "";
+				document.getElementById("result").value = "";
+				document.getElementById("pl").style.background = "#e9c2e7";
+				document.getElementById("min").style.background = "#e9c2e7";
+				document.getElementById("result").type = "hidden";
+				document.getElementById("res").type = "hidden";
+				document.getElementById("min").type = "submit";
+				document.getElementById("pl").type = "submit";
+				document.getElementById("num1").style.transform = "rotate(180deg)";
+				document.getElementById("num2").style.transform = "rotate(-180deg)";
+				window.setTimeout(function(){
+					document.getElementById("num1").style.transform = "rotate(0deg)";
+					document.getElementById("num2").style.transform = "rotate(0deg)";
+				}, 1500);
+
+			}
+			
+			function minus() {
+				var x = Number(document.getElementById("num1").value);
+				var y = Number(document.getElementById("num2").value);
+				var result = x-y;
+				document.getElementById("result").value = result;
+				document.getElementById("result").type = "number";
+				document.getElementById("pl").type = "hidden";
+				document.getElementById("res").type = "submit";
+				document.getElementById("min").style.background = "linear-gradient(90deg, white, #2dffd2)";
+
+				window.setTimeout(function(){
+
+				}, 5000);
+			}
+		</script>
+		
+	</head>
+	<body>
+	
+		<h1>Calculator</h1>
+		
+
+		<input type="number" id="num1"/> 
+		<input type="number" id="num2"/> <br/>
+		<input id="pl" type="submit" value="+" onclick="plus();"/>
+		<input id="res" type="hidden" value="Новый расчет" onclick="renew();"/>
+		<input id="min" type="submit" value="-" onclick="minus();"/> <br/>
+		<input disabled type="hidden" id="result"/> <br/>
+
+		
+		
+	</body>
+</html>
+
