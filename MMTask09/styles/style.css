@@ -1,0 +1,112 @@
+body{
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #b4b4b44d;
+}
+.buttons{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    top: 400px;
+    
+}
+.inputs{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    top: 350px;
+}
+.card{
+    position: fixed;
+    flex-wrap: wrap;
+    width: 500px;
+    height: 1000px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #FFFFFF;
+    border-radius: 7px;
+    box-shadow: 1px 2px 4px rgba(143, 141, 141, 0.479);
+}
+.custom-button{
+    box-shadow: 3px 3px 3px rgb(214, 213, 213);
+    background: rgb(255, 196, 85);
+    border: 3px solid rgb(255, 196, 85);
+    border-radius: 7px;
+    color: #FFFFFF;
+    font-size: 24pt;
+    width: 85px;
+}
+.custom-button:hover{
+    background-color: white;
+    color: rgb(255, 196, 85);
+}
+
+
+.x-input{
+    width: 85px;
+    height: 40px;
+    /* UI/Background */
+    background: #FFFFFF;
+    /* Secondary text */
+    border: 1px solid #B4B4B4;
+    box-sizing: border-box;
+    border-radius: 4px;
+    margin-right: 10px;
+}
+.y-input{
+    width: 85px;
+    height: 40px;
+    /* UI/Background */
+    background: #FFFFFF;
+    /* Secondary text */
+    border: 1px solid #B4B4B4;
+    box-sizing: border-box;
+    border-radius: 4px;
+}
+.z-input{
+    width: 180px;
+    height: 40px;
+    /* UI/Background */
+    background: #FFFFFF;
+    /* Secondary text */
+    border: 1px solid #B4B4B4;
+    box-sizing: border-box;
+    border-radius: 4px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    top: 457px;
+}
+.plus-style{
+    margin-right: 10px;
+    cursor: pointer;
+}
+.minus-style{
+    cursor: pointer;
+}
+.title-style{
+    position: fixed;
+    width: auto;
+    height: auto;
+    font-family: Calibri;
+    font-size: 20pt;
+    line-height: 21px;
+    letter-spacing: 0.05em;
+    color: white;
+    top: 230px;
+    border: 2px solid rgb(255, 196, 85);
+    border-radius: 7px;
+    background-color: rgb(255, 196, 85);
+    padding: 10px;
+}
+

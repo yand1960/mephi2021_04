@@ -1,0 +1,23 @@
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Calculator</title>
+        <link rel="stylesheet" href="styles/style.css">
+        <link rel="stylesheet" href="styles/animate.min.css">
+    </head>
+    <body>
+        <div class="card">
+            <p class="animate__animated animate__zoomInDown title-style">Калькулятор</p>
+            <div class="inputs">
+                <input class="x-input animate__animated animate__zoomInLeft" type="number" id="x" />
+                <input class="y-input animate__animated animate__zoomInRight" type="number" id="y" />
+            </div>
+            <div class="buttons">
+                <button class="custom-button plus-style animate__animated animate__zoomInLeft" id="plus" onclick="plus()">+</button>
+                <button class="custom-button minus-style animate__animated animate__zoomInRight" id="minus" onclick="minus()">-</button>
+            </div>
+            <input class="animate__animated animate__zoomInUp z-input" type="number" id="result"/>
+        </div>
+        <script src="scripts/script.js"></script>
+    </body>
+</html>
