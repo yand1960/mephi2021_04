@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Калькулятор</title>
+        <style> 
+            body {
+                background:#fcf5fa;
+                font-size:30px;
+                font-weight: bold;
+             }
+            form {
+                width:300px;
+                margin: 9px;
+                width: 300px;
+                
+                margin-left:10%;
+                background:#ffdcf7;
+            }
+            
+            #but_pl {
+                margin-left:0%;
+                width:70px;
+                padding:8px;
+                background:	#dd98fd;
+                border: 5px inset #ffffff;
+                font-size: large;
+                border-radius: 10px;
+            }
+           
+            #but_min {
+                margin-left:0%;
+                width:70px;
+                padding:8px;
+                background:	#dd98fd;
+                border: 5px inset #ffffff;
+                font-size: large;
+                border-radius: 10px;
+            }
+            #but_um {
+                margin-left:0%;
+                width:70px;
+                padding:8px;
+                background:	#dd98fd;
+                border: 5px inset #ffffff;
+                font-size: large;
+                border-radius: 10px;
+            }
+            #but_del {
+                margin-left:0%;
+                width:70px;
+                padding:8px;
+                background:	#dd98fd;
+                border: 5px inset #ffffff;
+                font-size: large;
+                border-radius: 10px;
+            }
+            #but1 {
+                margin-left:5%;
+                width:60px;
+                padding:8px;
+                background:	#fd98ec;
+                border: 5px inset #ffffff;
+                font-size: medium;
+                border-radius: 10px;
+            }
+            #but2 {
+                margin-left:0%;
+                width:60px;
+                padding:8px;
+                background:	#fd98ec;
+                border: 5px inset #ffffff;
+                font-size: medium;
+                border-radius: 10px;
+            }
+            #but3 {
+                margin-left:0%;
+                width:60px;
+                padding:8px;
+                background:	#fd98ec;
+                border: 5px inset #ffffff;
+                font-size: medium;
+                border-radius: 10px;
+            }
+            #but4 {
+                margin-left:5%;
+                width:60px;
+                padding:8px;
+                background:	#fd98ec;
+                border: 5px inset #ffffff;
+                font-size: medium;
+                border-radius: 10px;
+            }
+            #but5 {
+                margin-left:0%;
+                width:60px;
+                padding:8px;
+                background:	#fd98ec;
+                border: 5px inset #ffffff;
+                font-size: medium;
+                border-radius: 10px;
+            }
+            #but6 {
+                margin-left:0%;
+                width:60px;
+                padding:8px;
+                background:	#fd98ec;
+                border: 5px inset #ffffff;
+                font-size: medium;
+                border-radius: 10px;
+            }
+            #but7 {
+                margin-left:5%;
+                width:60px;
+                padding:8px;
+                background:	#fd98ec;
+                border: 5px inset #ffffff;
+                font-size: medium;
+                border-radius: 10px;
+            }
+            #but8 {
+                margin-left:0%;
+                width:60px;
+                padding:8px;
+                background:	#fd98ec;
+                border: 5px inset #ffffff;
+                font-size: medium;
+                border-radius: 10px;
+            }
+            #but9 {
+                margin-left:0%;
+                width:60px;
+                padding:8px;
+                background:	#fd98ec;
+                border: 5px inset #ffffff;
+                font-size: medium;
+                border-radius: 10px;
+            }
+            #but_none {
+                margin-left:5%;
+                width:60px;
+                padding:8px;
+                background:	#eb5eb0;
+                border: 5px inset #ffffff;
+                font-size: large;
+                border-radius: 10px;
+            }
+            #but0 {
+                margin-left:0%;
+                width:60px;
+                padding:8px;
+                background:	#fd98ec;
+                border: 5px inset #ffffff;
+                font-size: medium;
+                border-radius: 10px;
+            }
+            #but_itog {
+                margin-left:0%;
+                width:60px;
+                padding:8px;
+                background:	#dd98fd;
+                border: 5px inset #ffffff;
+                font-size: medium;
+                border-radius: 10px;
+            }
+            #text {
+                background:	#f7e4ef;
+                font-size: medium;
+                border-radius: 40px;
+                height: 45px;
+                width:260px;
+                font-size: large;
+                margin-left:5%;
+            }
+          
+        </style>
+    </head>
+    <body>
+        <fieldset>
+            <legend>ПОСЧИТАЙ СКОРЕЙ!</legend>
+                <form name="calculator">
+            
+                </br>
+                <input id="text" type="textfield" name="ans" value="">
+                </br>
+                <input id="but1" type="button" value="1" onclick="document.calculator.ans.value+='1'">
+                <input id="but2" type="button" value="2" onclick="document.calculator.ans.value+='2'">
+                <input id="but3" type="button" value="3" onclick="document.calculator.ans.value+='3'">
+                <input id="but_pl" type="button" value="+" onclick="document.calculator.ans.value+='+'"></br>
+
+                <input id="but4" type="button" value="4" onclick="document.calculator.ans.value+='4'">
+                <input id="but5" type="button" value="5" onclick="document.calculator.ans.value+='5'">
+                <input id="but6" type="button" value="6" onclick="document.calculator.ans.value+='6'">
+                <input id="but_min" type="button" value="-" onclick="document.calculator.ans.value+='-'"></br>
+
+                <input id="but7" type="button" value="7" onclick="document.calculator.ans.value+='7'">
+                <input id="but8" type="button" value="8" onclick="document.calculator.ans.value+='8'">
+                <input id="but9" type="button" value="9" onclick="document.calculator.ans.value+='9'">
+                <input id="but_um" type="button" value="×" onclick="document.calculator.ans.value+='*'"></br>
+
+                <input id="but_none" type="reset" value="C">
+                <input id="but0" type="button" value="0" onclick="document.calculator.ans.value+='0'">
+                <input id="but_itog" type="button" value="=" onclick="document.calculator.ans.value=eval(document.calculator.ans.value)">
+                <input id="but_um" type="button" value="÷" onclick="document.calculator.ans.value+='/'">
+
+                </form>
+        </fieldset>
+    </body>
+</html>
