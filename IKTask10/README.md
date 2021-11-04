@@ -23,14 +23,15 @@ ________________
 ### Запуск системы
 
 Для запуска системы необходимо наличие следующего ПО
-- docker
-- docker-compose
+- docker v >= 20.10.10
+- docker-compose v>=1.29.2
 - make
 
 Команды для сборки и запуска системы:
 ```bash
 make build
 make production
+make db
 ```
 
 

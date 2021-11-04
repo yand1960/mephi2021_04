@@ -3,8 +3,7 @@ start:
 stop:
 	docker-compose down
 production:
-	type .\_docker\nginx-conf\nginx.conf > .\nginx\nginx.conf
-	docker-compose up -d --sc ale db_init=0 --scale db_clean=0
+	docker-compose up -d --scale db_init=0 --scale db_clean=0
 build:
 	docker-compose build
 	docker image prune -f

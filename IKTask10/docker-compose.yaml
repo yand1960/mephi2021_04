@@ -30,32 +30,32 @@ x-db_transactions: &db_transactions
     - ./backend/src:/db_transactions/backend/src
   env_file: .env
 
-#x-frontend: &frontend
-#  build:
-#    context: .
-#    dockerfile: _docker/frontend/Dockerfile
-#  image: frontend
-#  container_name: "frontend"
-#  volumes:
-#    - ./frontend:/frontend
-#    - /frontend/node_modules
+x-frontend: &frontend
+  build:
+    context: .
+    dockerfile: _docker/frontend/Dockerfile
+  image: frontend
+  container_name: "frontend"
+  volumes:
+    - ./frontend:/frontend
+    - /frontend/node_modules
 
 services:
-#  nginx:
-#    restart: unless-stopped
-#    image: nginx:latest
-#    container_name: "nginx"
-#    ports:
-#      - 3000:3000
-#    depends_on:
-#      frontend:
-#          condition: service_completed_successfully
-#    volumes:
-#      - ./frontend/build:/frontend/build
-#      - ./nginx:/etc/nginx/conf.d
-#    command: /etc/nginx/conf.d/run_nginx.sh
-#    env_file:
-#      - .env
+  nginx:
+    restart: unless-stopped
+    image: nginx:latest
+    container_name: "nginx"
+    ports:
+      - 3000:3000
+    depends_on:
+      frontend:
+          condition: service_completed_successfully
+    volumes:
+      - ./frontend/build:/frontend/build
+      - ./nginx:/etc/nginx/conf.d
+    command: /etc/nginx/conf.d/run_nginx.sh
+    env_file:
+      - .env
 
   postgres:
     image: postgres:latest
@@ -96,7 +96,7 @@ services:
     <<: *db_transactions
     container_name: "db_clean"
     command: npm run clean
-#  frontend:
-#    <<: *frontend
-#    command: npm run build
+  frontend:
+    <<: *frontend
+    command: npm run build
 
