@@ -31,7 +31,6 @@ ________________
 ```bash
 make build
 make production
-make db
 ```
 
 
