@@ -1,5 +1,6 @@
 import { action, makeObservable, observable } from 'mobx';
-import ProductModel from "@/model/ProductModel";
+import ProductModel from '@/model/ProductModel';
+
 interface IMode {
   value: 'all' | 'search';
   searchProduct: string;
@@ -7,12 +8,23 @@ interface IMode {
 
 export default class ProductStore {
   @observable products: ProductModel[] | null = null;
-  @observable count: number = 0;
 
-  mode: IMode = {value: 'all', searchProduct: ''};
+  @observable count = 0;
+
+  @observable productsInBasket: ProductModel[] = []
+
+  mode: IMode = { value: 'all', searchProduct: '' };
 
   constructor() {
     makeObservable(this);
+  }
+
+  @action addInBasket(product: ProductModel) {
+    this.productsInBasket.push(product);
+  }
+
+  @action removeFromBasket(product: ProductModel) {
+    this.productsInBasket = this.productsInBasket.filter(el => el.id !== product.id);
   }
 
   @action addProducts = (array: any[]) => {

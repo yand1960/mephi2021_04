@@ -1,22 +1,17 @@
 import React, { useEffect, useRef, useState } from 'react';
 import './HomePage.scss';
 import { inject, observer } from 'mobx-react';
-import { Link, withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { IconButton, TextField } from '@material-ui/core';
 import ProductDialog from '@pages/HomePage/components/ProductDialog';
 import SearchIcon from '@material-ui/icons/Search';
-import {
-  MapContainer, Map as LeafletMap, TileLayer, Marker, Popup
-} from 'react-leaflet';
-import { Chart, registerables } from 'chart.js';
-import Charts from '@pages/HomePage/components/Charts/Charts';
 import ProductModel from '@/model/ProductModel';
 import { StoresNames } from '@/stores/StoresNames';
 import ContentLoader from '@/components/System/ContentLoader/ContentLoader';
+import ProductStore from '@/stores/ProductStore';
 
-Chart.register(...registerables);
 
 const HomePage: React.FC<{ services: any }> = (props) => {
   const { t } = useTranslation();
@@ -24,7 +19,7 @@ const HomePage: React.FC<{ services: any }> = (props) => {
   const [searchProduct, setSearchProduct] = useState('');
   const [activeProduct, setActiveProduct] = useState<ProductModel | null>(null);
   const [productMode, setProductMode] = useState<'create' | 'update' | null>(null);
-  const productStore = props[StoresNames.ProductStore];
+  const productStore = props[StoresNames.ProductStore] as ProductStore;
 
   useEffect(() => {
     if (isFetching) {
@@ -51,6 +46,10 @@ const HomePage: React.FC<{ services: any }> = (props) => {
     if (loaderElementTop - window.innerHeight < 30) {
       setIsFetching(true);
     }
+  };
+
+  const addToCard = (product) => {
+    productStore.addInBasket(product);
   };
 
   const { products } = productStore;
@@ -108,7 +107,7 @@ const HomePage: React.FC<{ services: any }> = (props) => {
                         <p className="card-text mb-1">{product.substanceName}</p>
                         <p className="card-text">{product.substanceCode}</p>
                         <div className="d-flex justify-content-end">
-                          <Link to="/" className="btn btn-primary">Привет</Link>
+                          <button to="/" className="btn btn-primary" onClick={event => { addToCard(product); }}>Добавить в корзину</button>
                         </div>
                       </div>
                       <div className="product-card__button-group pr-4 pt-2">

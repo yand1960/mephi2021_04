@@ -1,13 +1,18 @@
-import React, {useState} from 'react';
-import {inject, observer} from 'mobx-react';
-import {useTranslation} from "react-i18next";
+import React, { useState } from 'react';
+import { inject, observer } from 'mobx-react';
+import { useTranslation } from 'react-i18next';
 import './Header.scss';
-import {StoresNames} from "@/stores/StoresNames";
-import {Link} from 'react-router-dom';
-import {ButtonGroup, DropdownButton, Dropdown} from "react-bootstrap";
+import { Link } from 'react-router-dom';
+import { ButtonGroup, DropdownButton, Dropdown } from 'react-bootstrap';
+import { Badge, IconButton } from '@material-ui/core';
+import { ShoppingCart } from '@material-ui/icons';
+import { StoresNames } from '@/stores/StoresNames';
+import ProductStore from "@/stores/ProductStore";
 
 const Header = (props: { services?: any }) => {
-  const {t, i18n} = useTranslation();
+  const { t, i18n } = useTranslation();
+
+  const store = props[StoresNames.ProductStore] as ProductStore;
 
   const changeLanguage = (language: string) => {
     i18n.changeLanguage(language);
@@ -28,18 +33,12 @@ const Header = (props: { services?: any }) => {
             <h4 className="header__logo-h4 text-white ml-2 m-0">HackTemplate</h4>
           </Link>
           <div className="ml-auto d-flex align-items-center h-100">
-            <DropdownButton
-              variant="outlined text-white d-none d-sm-block"
-              as={ButtonGroup}
-              title={t("header.translations")}
-            >
-              <Dropdown.Item
-                onClick={() => changeLanguage("ru")}
-              >RU</Dropdown.Item>
-              <Dropdown.Item
-                onClick={() => changeLanguage("en")}
-              >EN</Dropdown.Item>
-            </DropdownButton>
+            <IconButton>
+              <Badge badgeContent={store.productsInBasket.length} color="error">
+                <ShoppingCart style={{ color: 'white' }} />
+              </Badge>
+            </IconButton>
+
             <DropdownButton
               variant="outlined text-white pr-0"
               as={ButtonGroup}
@@ -47,8 +46,11 @@ const Header = (props: { services?: any }) => {
             >
               <Dropdown.Item
                 onClick={() => {
-              }}>Личный кабинет</Dropdown.Item>
-              <Dropdown.Divider/>
+                }}
+              >
+                Личный кабинет
+              </Dropdown.Item>
+              <Dropdown.Divider />
               <Dropdown.Item
                 onClick={logout}
               >
@@ -60,6 +62,6 @@ const Header = (props: { services?: any }) => {
       </div>
     </header>
   );
-}
+};
 
-export default inject('services', StoresNames.UserStore)(observer(Header));
+export default inject('services', StoresNames.UserStore, StoresNames.ProductStore)(observer(Header));
