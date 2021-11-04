@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './HomePage.scss';
 import { inject, observer } from 'mobx-react';
 import { withRouter } from 'react-router-dom';
@@ -107,27 +107,8 @@ const HomePage: React.FC<{ services: any }> = (props) => {
                         <p className="card-text mb-1">{product.substanceName}</p>
                         <p className="card-text">{product.substanceCode}</p>
                         <div className="d-flex justify-content-end">
-                          <button to="/" className="btn btn-primary" onClick={event => { addToCard(product); }}>Добавить в корзину</button>
+                          <button disabled={productStore.productsInBasket.find(el => el.id === product.id)} to="/" className="btn btn-primary" onClick={event => { addToCard(product); }}>Добавить в корзину</button>
                         </div>
-                      </div>
-                      <div className="product-card__button-group pr-4 pt-2">
-                        <button
-                          className="btn btn-sm mr-2 edit"
-                          onClick={() => {
-                            setProductMode('update');
-                            setActiveProduct(product);
-                          }}
-                        >
-                          <i className="bi bi-pencil-fill" />
-                        </button>
-                        <button
-                          className="btn btn-sm delete"
-                          onClick={() => {
-                            props.services.productService.deleteProduct(product.id);
-                          }}
-                        >
-                          <i className="bi bi-x-lg" />
-                        </button>
                       </div>
                     </div>
                   ))

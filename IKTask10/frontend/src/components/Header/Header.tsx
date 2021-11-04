@@ -7,10 +7,12 @@ import { ButtonGroup, DropdownButton, Dropdown } from 'react-bootstrap';
 import { Badge, IconButton } from '@material-ui/core';
 import { ShoppingCart } from '@material-ui/icons';
 import { StoresNames } from '@/stores/StoresNames';
-import ProductStore from "@/stores/ProductStore";
+import ProductStore from '@/stores/ProductStore';
+import BasketDialog from "@/components/BasketDialog";
 
 const Header = (props: { services?: any }) => {
   const { t, i18n } = useTranslation();
+  const [openDialog, setOpenDialog] = useState<boolean>(false);
 
   const store = props[StoresNames.ProductStore] as ProductStore;
 
@@ -33,7 +35,7 @@ const Header = (props: { services?: any }) => {
             <h4 className="header__logo-h4 text-white ml-2 m-0">HackTemplate</h4>
           </Link>
           <div className="ml-auto d-flex align-items-center h-100">
-            <IconButton>
+            <IconButton onClick={() => setOpenDialog(true)}>
               <Badge badgeContent={store.productsInBasket.length} color="error">
                 <ShoppingCart style={{ color: 'white' }} />
               </Badge>
@@ -60,6 +62,10 @@ const Header = (props: { services?: any }) => {
           </div>
         </div>
       </div>
+      <BasketDialog
+        open={openDialog}
+        onClose={() => setOpenDialog(false)}
+      />
     </header>
   );
 };
