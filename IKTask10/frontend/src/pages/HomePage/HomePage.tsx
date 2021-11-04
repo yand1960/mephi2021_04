@@ -1,22 +1,25 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import './HomePage.scss';
-import {inject, observer} from 'mobx-react';
-import {Link, withRouter} from "react-router-dom";
-import ContentLoader from "@/components/System/ContentLoader/ContentLoader";
-import {useTranslation} from "react-i18next";
-import {StoresNames} from "@/stores/StoresNames";
+import { inject, observer } from 'mobx-react';
+import { Link, withRouter } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import {IconButton, TextField} from "@material-ui/core";
-import ProductDialog from "@pages/HomePage/components/ProductDialog";
-import ProductModel from "@/model/ProductModel";
+import { IconButton, TextField } from '@material-ui/core';
+import ProductDialog from '@pages/HomePage/components/ProductDialog';
 import SearchIcon from '@material-ui/icons/Search';
-import { MapContainer, Map as LeafletMap, TileLayer, Marker, Popup } from 'react-leaflet';
-import {Chart, registerables} from 'chart.js';
-import Charts from "@pages/HomePage/components/Charts/Charts";
+import {
+  MapContainer, Map as LeafletMap, TileLayer, Marker, Popup
+} from 'react-leaflet';
+import { Chart, registerables } from 'chart.js';
+import Charts from '@pages/HomePage/components/Charts/Charts';
+import ProductModel from '@/model/ProductModel';
+import { StoresNames } from '@/stores/StoresNames';
+import ContentLoader from '@/components/System/ContentLoader/ContentLoader';
+
 Chart.register(...registerables);
 
 const HomePage: React.FC<{ services: any }> = (props) => {
-  const {t} = useTranslation();
+  const { t } = useTranslation();
   const [isFetching, setIsFetching] = useState(true);
   const [searchProduct, setSearchProduct] = useState('');
   const [activeProduct, setActiveProduct] = useState<ProductModel | null>(null);
@@ -37,7 +40,7 @@ const HomePage: React.FC<{ services: any }> = (props) => {
     return () => {
       document.removeEventListener('scroll', scrollHandler);
       productStore.clearProducts();
-    }
+    };
   }, []);
 
   const scrollHandler = (e: Event) => {
@@ -50,37 +53,40 @@ const HomePage: React.FC<{ services: any }> = (props) => {
     }
   };
 
-  const products = productStore.products;
+  const { products } = productStore;
   return (
     <div className="home-page">
       <div className="mb-3 d-flex justify-content-between align-items-end">
         <div className="d-flex ">
-          <h4>{t("homePage.products")}</h4>
+          <h4>{t('homePage.products')}</h4>
           <button
             className="btn ml-3"
-            onClick={() => setProductMode("create")}
-          >Создать
+            onClick={() => setProductMode('create')}
+          >
+            Создать
           </button>
         </div>
         <div className="home-page__search">
           <form
             onSubmit={(e) => {
               e.preventDefault();
-              props.services.productService.searchProduct(searchProduct)
+              props.services.productService.searchProduct(searchProduct);
             }}
             className="d-flex align-items-center"
           >
             <TextField
-              label={"Найти продукт"}
+              label="Найти продукт"
               variant="standard"
               size="small"
               value={searchProduct}
               onChange={(e) => setSearchProduct(e.target.value)}
-              InputLabelProps={{required: false}}
+              InputLabelProps={{ required: false }}
             />
             <IconButton
               type="submit"
-            ><SearchIcon/></IconButton>
+            >
+              <SearchIcon />
+            </IconButton>
           </form>
         </div>
       </div>
@@ -89,46 +95,54 @@ const HomePage: React.FC<{ services: any }> = (props) => {
           !products
             ? [...Array(12).keys()].map((value) => (
               <div key={value} className="product-card col-12 col-sm-6 col-lg-4 mb-3">
-                <ContentLoader/>
+                <ContentLoader />
               </div>
             ))
-            : <>
-              {
-                products.map((product) => (
-                  <div key={product.id} className="product-card col-12 col-sm-6 col-lg-4 mb-3">
-                    <div className="product-card__wrapper card-body">
-                      <h5 className="card-title">{product.name}</h5>
-                      <p className="card-text mb-1">{product.substanceName}</p>
-                      <p className="card-text">{product.substanceCode}</p>
-                      <div className="d-flex justify-content-end">
-                        <Link to="/" className="btn btn-primary">{t("homePage.button")}</Link>
+            : (
+              <>
+                {
+                  products.map((product) => (
+                    <div key={product.id} className="product-card col-12 col-sm-6 col-lg-4 mb-3">
+                      <div className="product-card__wrapper card-body">
+                        <h5 className="card-title">{product.name}</h5>
+                        <p className="card-text mb-1">{product.substanceName}</p>
+                        <p className="card-text">{product.substanceCode}</p>
+                        <div className="d-flex justify-content-end">
+                          <Link to="/" className="btn btn-primary">Привет</Link>
+                        </div>
+                      </div>
+                      <div className="product-card__button-group pr-4 pt-2">
+                        <button
+                          className="btn btn-sm mr-2 edit"
+                          onClick={() => {
+                            setProductMode('update');
+                            setActiveProduct(product);
+                          }}
+                        >
+                          <i className="bi bi-pencil-fill" />
+                        </button>
+                        <button
+                          className="btn btn-sm delete"
+                          onClick={() => {
+                            props.services.productService.deleteProduct(product.id);
+                          }}
+                        >
+                          <i className="bi bi-x-lg" />
+                        </button>
                       </div>
                     </div>
-                    <div className="product-card__button-group pr-4 pt-2">
-                      <button
-                        className="btn btn-sm mr-2 edit"
-                        onClick={() => {
-                          setProductMode("update");
-                          setActiveProduct(product);
-                        }}
-                      ><i className="bi bi-pencil-fill"/></button>
-                      <button
-                        className="btn btn-sm delete"
-                        onClick={() => {
-                          props.services.productService.deleteProduct(product.id);
-                        }}
-                      ><i className="bi bi-x-lg"/></button>
-                    </div>
+                  ))
+                }
+                {
+                  productStore.products.length < productStore.count
+                && (
+                  <div className="home-page__loader d-flex justify-content-center w-100 m-3">
+                    <CircularProgress size={30} />
                   </div>
-                ))
-              }
-              {
-                productStore.products.length < productStore.count
-                && <div className="home-page__loader d-flex justify-content-center w-100 m-3">
-                    <CircularProgress size={30}/>
-                </div>
-              }
-            </>
+                )
+                }
+              </>
+            )
         }
       </div>
       <ProductDialog
@@ -141,6 +155,6 @@ const HomePage: React.FC<{ services: any }> = (props) => {
       />
     </div>
   );
-}
+};
 
-export default withRouter(inject(StoresNames.ProductStore, "services")(observer(HomePage)));
+export default withRouter(inject(StoresNames.ProductStore, 'services')(observer(HomePage)));

@@ -5,10 +5,7 @@
 /backend/node_modules
 /backend/coverage
 /backend/log
-/phone/.expo
-/phone/node_modules
 /verdaccio/storage
-/db_transactions/data/*
 
 *.idea
 *package-lock.json
