@@ -1,0 +1,119 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        <style>
+            html {
+				
+				background-image: url(../images/back_bas.jpg);
+			}
+            #buy_button {
+                margin-bottom: 20px;
+                margin-right: 10px;
+                margin-top: 5px;
+                
+            }
+            #delete_button {
+                margin-bottom: 20px;
+                
+            }
+            #link {
+                font-size: 20px;
+            }
+            
+
+        </style>
+
+        <script>
+            function getTotal(carts) {
+                document.getElementById("buy_button").hidden = false;
+                total_qty = 0;
+                total_price = 0;
+                for([id, value] of Object.entries(carts)) {
+                    total_qty += Number(value.quantity);
+                    total_price += Number(value.quantity) * Number(value.price);
+                }
+                if (total_qty == 0){
+                    text = `В корзине нет товаров`;
+                    document.getElementById("buy_button").hidden = true;
+                    document.getElementById("delete_button").hidden = true;
+                }
+                else{
+                    text =`В корзине ${total_qty} шт. товаров на сумму ${total_price} ₽`;
+                    document.getElementById("buy_button").hidden = false;
+                }
+                document.getElementById("storage").innerHTML = text
+
+            }
+
+            async function getCarts() {
+                var url = "cart.php";
+                var request = await fetch(url);
+                var carts = await request.json();
+                console.log(carts);
+                out = "<table>"
+                for([id, value] of Object.entries(carts)) {
+                    if (Number(value.quantity) != 0){
+                        out += `
+                            <tr>
+                                <td id="id_${id}">${value.name}</td>
+                                <td><input onblur="add(${id});" onkeyup="add(${id});" type = "number" value="${value.quantity}" id='qty_${id}'></td>
+                            </tr>
+                        `;
+                    }
+                }
+                out += "</table>"
+                    document.getElementById("display").innerHTML = out;
+
+                    getTotal(carts);
+            }
+
+            async function removeFromCart(){
+                var qty = 0
+                var url = "cart.php";
+                var request = await fetch(url);
+                var carts = await request.json();
+                console.log(carts);
+                for([id] of Object.entries(carts)) {
+                        var url_id = `add_product_to_cart.php?id=${id}&qty=${qty}`;
+                        console.log(url_id);
+                        var request_id = await fetch(url_id);
+                    }
+                await getCarts();
+
+            }
+
+            async function add(id) {
+                var qty = document.getElementById(`qty_${id}`).value;
+                var url = `add_product_to_cart.php?id=${id}&qty=${qty}`;
+                console.log(url);
+                var request = await fetch(url);
+                var result = await request.json();
+                await getCarts();
+            }
+
+            async function buy(){
+                var url = `purchase.php`;
+                var response = await fetch(url);
+                var result = await response.json();
+                console.log(result);
+                await getCarts();
+                document.getElementById("bags").innerHTML = `Ваш заказ принят в обработку`;
+                document.getElementById("storage").innerHTML = '';
+                    
+            }
+        
+            
+        </script>
+    </head>
+
+
+    <body onload="getCarts();">
+        <h1 id="bags">Ваша корзина</h1>
+        <div id="display">
+        </div>
+        <button id="buy_button" onclick='buy()'>Купить</button>
+        <button id="delete_button" onclick='removeFromCart()'>Очистить корзину</button> </br>
+        <h2 id="storage"></h2> 
+        <a id="link" href="../shop.html">Вернуться в магазин</a>
+    </body>
+</html>
