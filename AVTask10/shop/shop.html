@@ -1,0 +1,164 @@
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <style>
+            td {
+                padding: 20px;
+            }
+
+            table input {
+                width: 50px;
+            }
+            h1{
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                font-family: Arial, sans-serif;
+                background-color: rgb(65, 65, 145);
+                color: white;
+                padding: 10px;
+            }
+            h2{
+                font-family: Arial, sans-serif;
+                color: rgb(46, 46, 204);
+                
+            }
+            #display{
+                border: 3px solid rgb(65, 65, 145);
+
+            }
+            #cart{
+                border: 3px solid rgb(65, 65, 145);
+
+            }
+            p{
+                padding: 10px;
+            }
+            .blue-button{
+                background: rgb(46, 46, 204);
+                border: 3px solid rgb(46, 46, 204);
+                color: #FFFFFF;
+                font-size: 10pt;
+                width: 170px;
+            }
+            .blue-button:hover{
+                color: white;
+                background-color: rgb(65, 65, 145);
+                border: 3px solid rgb(65, 65, 145);
+                cursor: pointer;
+            }
+        </style>
+        <script>
+            async function getProducts() {
+                var url = "api/product_service.php";
+                var request = await fetch(url);
+                var products = await request.json();
+                console.log(products);
+                out = "<table>"
+                for(var i=0; i < products.length; i++) {
+                    var id = products[i][0];
+                    var name = products[i][1];
+                    var price = products[i][2];
+                    console.log(name)
+                    out += `
+                    <tr>
+                        <td>${name}</td>
+                        <td>${price} руб</td>
+                        <td>
+                            <input type="number" value="0" id='qty${id}'> шт.
+                        </td>
+                        <td>
+                            <button class="blue-button" onclick='addToCart(${id});'>Добавить в корзину</button>
+                        </td>
+                    </tr>
+                    `;
+                }
+                out += "</table>"
+                document.getElementById("display").innerHTML = out;
+            }
+
+            async function addToCart(id) {
+                var qty = document.getElementById(`qty${id}`).value;
+                var url = `api/add_product_to_cart.php?id=${id}&qty=${qty}`;
+                console.log(url);
+                var request = await fetch(url);
+                var result = await request.json();
+                //alert("Товар успешно добавлен в корзину!");
+                console.log(result);
+
+                out = "<table>"
+                for(var i=0; i < result.length; i++) {
+                    var id = result[i][0];
+                    var qty = result[i][1];
+
+                    var url = "api/product_service.php";
+                    var request = await fetch(url);
+                    var products = await request.json();
+                    var name = products[id-1][1];
+                    out += `
+                    <tr>
+                        <td>${name}</td>
+                        <td>${qty} шт.</td>
+                        <td><button class="blue-button">Оформить заказ</button></td>
+                    </tr>
+                    `;
+                }
+                out += "</table>"
+                document.getElementById("display_cart").innerHTML = out;
+            }
+
+            async function cart(){
+                var url = "api/cart.php";
+                var request = await fetch(url);
+                var result = await request.json();
+                console.log(result);
+                out = "<table>"
+                    for(var i=0; i < result.length; i++) {
+                    var id = result[i][0];
+                    var qty = result[i][1];
+
+                    var url = "api/product_service.php";
+                    var request = await fetch(url);
+                    var products = await request.json();
+                    var name = products[id-1][1];
+                    out += `
+                    <tr>
+                        <td>${name}</td>
+                        <td>${qty} штук</td>
+                        <td><button class="blue-button">Оформить заказ</button></td>
+                    </tr>
+                    `;
+                }
+                out += "</table>"
+                document.getElementById("display_cart").innerHTML = out;
+            }
+
+            function f_refresh(){
+            document.location.replace("shop.html");
+            }
+        </script>
+    </head>
+
+    <body onload="getProducts(); cart();">
+        <h1>Делайте ваши покупки!</h1>
+        <h2>Каталог</h2>
+        <div id="display">
+            <table>
+               
+            </table>
+        </div>
+
+        <h2>Ваша корзина</h2>
+        <form action="api/destroy.php" method="POST">
+            <button name="destroy_btn" onclick="f_refresh()" class="blue-button">Очистить всю корзину</button>
+        </form>
+        <div id="cart">
+            <img id="cat" width="300" src="img/catbox.jpg" />
+            <div id="display_cart">
+                <table>
+                    
+                </table>
+            </div>
+        </div>
+    </body>
+</html>
