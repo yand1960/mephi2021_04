@@ -1,0 +1,40 @@
+<html>
+	<head>
+		<title>Курсы</title>
+		<meta charset="utf-8" />
+		<style>
+			tr:nth-child(odd) {
+				background-color: #CCCCCC;
+			}
+		</style>
+		<script>
+			function getCourses() {
+				var url = "api/coursesRS.php?filter=" 
+								+ document.getElementById("filter").value;
+				console.log(url);
+				var xhr = new XMLHttpRequest();
+				xhr.open("GET",url, false);
+				xhr.send();
+				var result = xhr.responseText;
+				console.log(result);
+				var courses = JSON.parse(result);
+				console.log(courses);
+				var out = "";
+				for(var i in courses) {
+					var p = courses[i];
+					//console.log(p);
+					console.log(p[1]);
+					out += p[1] + "<br />";
+				}
+				document.getElementById("courses").innerHTML = out;
+			}
+		</script>
+		
+	</head>
+	<body>
+		<h1>Учебные курсы (Web Service)</h1>
+		
+		<input id="filter" onkeyup="getCourses();" autocomplete="off"/>
+		<!-- <button onclick="getCourses();">Найти курсы</button> -->
+		<div id="courses"></div>
+		

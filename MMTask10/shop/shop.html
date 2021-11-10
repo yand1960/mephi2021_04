@@ -1,0 +1,146 @@
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <style>
+            td {
+                padding: 10px;
+            }
+
+            table input {
+                width: 50px;
+            }
+            h1{
+                margin: 0;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                margin-bottom: 20px;
+                background: rgb(255, 196, 85);
+                border: 3px solid rgb(255, 196, 85);
+                border-radius: 7px;
+                color: white;
+            }
+            #display{
+                margin: 0;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                border: 3px solid rgb(255, 196, 85);
+                border-radius: 7px;
+            }
+            #cart-hdr{
+                margin: 0;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                margin-top: 20px;
+                margin-bottom: 10px;
+                border: 3px solid rgb(255, 196, 85);
+                border-radius: 7px;
+                color: white;
+                background-color: rgb(255, 196, 85);
+            }
+            #cart{
+                margin: 0;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                border: 3px solid rgb(255, 196, 85);
+                border-radius: 7px;
+            }
+            #mybutton{
+                background: rgb(255, 196, 85);
+                border: 3px solid rgb(255, 196, 85);
+                border-radius: 7px;
+                color: #FFFFFF;
+                font-size: 12pt;
+                width: 185px;
+            }
+            #mybutton:hover{
+                background-color: white;
+                color: rgb(255, 196, 85);
+            }
+        </style>
+        <script>
+            async function getProducts() {
+                var url = "api/product_service.php";
+                var request = await fetch(url);
+                var products = await request.json();
+                console.log(products);
+                out = "<table>"
+                for(var i=0; i < products.length; i++) {
+                    var id = products[i][0];
+                    var name = products[i][1];
+                    var price = products[i][2];
+                    console.log(name)
+                    out += `
+                    <tr>
+                        <td>${name}</td>
+                        <td>${price}</td>
+                        <td>
+                            <input type="number" value="0" id='qty${id}'>
+                        </td>
+                        <td>
+                            <button onclick='addToCart(${id});' id="mybutton">Добавить в корзину</button>
+                        </td>
+                    </tr>
+                    `;
+                }
+                out += "</table>"
+                document.getElementById("display").innerHTML = out;
+            }
+
+            async function addToCart(id) {
+                var qty = document.getElementById(`qty${id}`).value;
+                var url = `api/add_product_to_cart.php?id=${id}&qty=${qty}`;
+                console.log(url);
+                var request = await fetch(url);
+                var result = await request.json();
+                alert("Товар успешно добавлен в корзину!");
+                console.log(result);
+                out = "<table>"
+                for(var i=0; i < result.length; i++) {
+                    var id = result[i][0];
+                    var qty = result[i][1];
+                    var url = "api/product_service.php";
+                    var request = await fetch(url);
+                    var products = await request.json();
+                    var counter = id - 1;
+                    var name = products[counter][1];
+                    out += `
+                    <tr>
+                        <td>ID: ${id}</td>
+                        <td>Количество: ${qty}</td>
+                        <td>Название: ${name}</td>
+                    </tr>
+                    `;
+                }
+                out += "</table>"
+                document.getElementById("cart").innerHTML = out;
+
+            }
+
+            
+        </script>
+
+    </head>
+
+    <body onload="getProducts();">
+        
+        <h1>Делайте ваши покупки!</h1>
+        <div>
+            <div id="display">
+                <table>
+                   
+                </table>
+            </div>
+            <h2 id="cart-hdr">Корзина</h2>
+            <div id="cart">
+                <p>Пожалуйста, добавьте товар к корзину</p>
+                <table>
+                   
+                </table>
+            </div>
+        </div>
+    </body>
+</html>
