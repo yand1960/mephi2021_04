@@ -1,0 +1,120 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        <style>
+            html {
+				
+				background-image: url(images/back.jpg);
+
+
+			}
+            td {
+                margin-right: 50px;
+                padding: 5px;
+                color:rgb(44, 78, 150);
+                
+            }
+            table input {
+                width: 50px;
+            }
+            #storage {
+				background: transparent;
+  				border: none;
+				
+				color: rgb(233, 107, 128);
+				width: 500px;
+				font-size: 16px;
+			}
+            #bags {
+                color: rgb(44, 78, 150);
+                margin-left: 220px;
+            }
+            #order
+            {
+                
+                background: linear-gradient(45deg,white, #a0d2f3);
+				border-radius: 20px;
+				margin: 10px; 
+				border: none;
+            }
+            
+        
+
+        </style>
+        
+        <script>
+
+            function updateTotal(carts){
+                total_qty = 0
+                for([id, value] of Object.entries(carts)){
+                    total_qty += Number(value);
+                }
+
+                if (total_qty == 0){
+                    text = `Ваша корзина пуста`;
+                }
+                else{
+                    text =`Товаров в корзине: ${total_qty} шт`;
+                }
+                document.getElementById("storage").innerHTML = text
+            }
+
+            async function updateCarts() {
+                // вызов без параметров, чтобы получить текущий список заказов
+                var url = `api/add_product_to_cart.php`;
+                console.log(url);
+                var request = await fetch(url);
+                var result = await request.json();
+                console.log(result);
+                updateTotal(result);
+
+            }
+
+            async function getProducts() {
+                var url = "api/product_service.php";
+                var request = await fetch(url);
+                var products = await request.json();
+                console.log(products);
+                out = "<table>"
+                for(var i=0; i < products.length; i++) {
+                    var id = products[i][0];
+                    var name = products[i][1];
+                    var price = products[i][2];
+                    console.log(name);
+                    out += `
+                <tr>
+                    <td>${name}</td>
+                    <td id="id${id}_price">${price}₽</td></td>
+                <td>
+                    <button onclick='addToCart(${id})'>Добавить в корзину</button>
+                </td>
+                </tr>
+                    `;
+
+                }
+                out += "</table>"
+                    document.getElementById("display").innerHTML = out;
+                await updateCarts();
+            }
+            
+            async function addToCart(id) {
+                var url = `api/add_product_to_cart.php?id=${id}`;
+                console.log(url);
+                var request = await fetch(url);
+                var result = await request.json();
+                updateTotal(result);
+            }
+        </script>
+    </head>
+    <body onload="getProducts();">
+        <h1 id="bags">Делайте ваши покупки!</h1>
+        <div id="display">
+            
+            
+        </div>
+        <h2 id="storage"></h2>
+        <!-- <input type = "submit" id = "order" value="Оформить заказ" /><br /> -->
+        
+            <a href="api/basket.html">Перейти в корзину </a>
+    </body>
+</html>
