@@ -1,0 +1,227 @@
+<html>
+    <head>
+        <meta charset="utf-8"/>
+        <style>
+            td {
+                padding: 10px;
+                font-size: 18px;
+            }
+            table input{
+                width: 50px;
+            }
+            html {
+				
+				background: linear-gradient(to top, #fefcea, #f1da36);
+
+
+			}
+        </style>
+        
+    </head>
+    <body onload="getProducts()">
+        <h1>Добро пожаловать в магазин</h1>
+        <div id="display">
+          
+        </div>
+        <div class="basket">
+            <h1>Ваша корзина</h1>
+            <div id="cartShop">
+            </div>
+            <button class="cart1" onclick='emptyCart();'>Очистить корзину</button>
+            <button class="cart1" onclick='checkout();'>Оформить заказ</button>
+        </div>
+
+        <div class="pay">
+        <div class="cart-pay">
+            <div id="order"></div>
+            <div>Общая стоимость: <span id="cash"></span> $</div>
+            <button id="pay1" onclick="away()">Оплатить</button>
+        </div>
+        </div>
+    <style type="text/css">
+        .basket {
+            position: absolute;
+            top: 0;
+            right: 0;
+            background: transparent;
+            width: 500px;
+            height: 90%;
+            margin-top: 25px;
+            margin-right: 25px;
+        }
+        .basket h2 {
+            font-size: 16px;
+            text-align: center;
+            color: rgb(14, 12, 12);
+        }
+        #cartShop {
+            margin: 18px 18px 18px 18px;
+            color: black;
+        }
+        #cartShop td{
+            color: black;
+            width: 100px; 
+        }
+        .cart1{
+            color: black;
+            background: rgb(145, 255, 0);
+        }
+        .pay{
+            width:100%;
+            min-height:100%;
+            background-color: rgba(161, 140, 46, 0.5);
+            overflow:hidden;
+            position:fixed;
+            top:0px;
+            left: 0px;
+            display: none;
+        }
+        .pay .delete {
+            display: none;
+        }
+        #pay1{
+            background-color: yellow;
+
+        }
+        .pay .cart-pay{
+            margin:40px auto 0px auto;
+            width: 500px;
+            padding:10px;
+            background-color: #918e69;
+            border-radius:5px;
+            box-shadow: 0px 0px 10px #000;
+        }
+    </style>
+<script
+  src="https://code.jquery.com/jquery-3.6.0.min.js"
+  integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+  crossorigin=""></script>
+    <script>
+            async function getProducts(){
+                var url = "api/product_service.php";
+                var request = await fetch(url);
+                var products = await request.json();
+                out = "<table>"
+                out += "<tr><td>Товар</td><td>Цена</td><td>Количество</td><td></td></tr>"
+                console.log(products);
+                for(var i=0; i < products.length; i++){
+                    var id = i;
+                    var name = products[i][1]
+                    var price = products[i][2]
+                    console.log(name)
+                    out += `
+                    <tr>
+                        <td>${name}</td>
+                        <td>${price}</td>
+                        <td>
+                            <input type="number" min="1" value="1" id='qty${id}'>
+                        </td>
+                        <td>
+                            <button onclick='addToCart(${id});'>Добавить в коризну</button>
+                        </td>
+                    </tr>
+                    `;
+                }
+                out += "</table>"
+                document.getElementById("display").innerHTML = out;
+            }
+            async function addToCart(id){
+                var url = "api/product_service.php";
+                var request = await fetch(url);
+                var products = await request.json();
+                
+                var name = products[id][1];
+                var price = products[id][2];
+                var valueid = document.getElementById(`qty${id}`).value;
+                var total = price*valueid;
+                test = document.getElementById(`${id}`);
+                if (test == null){
+                    out = `<table id='list${id}'>`
+                    out += `
+                    <tr id='${id}'>
+                        <td>Товар:<br>${name}</td>
+                        <td>Стоимость:<br><p id='price'>${total}</p></td>
+                        <td>Количество:<br><dd id='qtynew${id}'>${valueid}</dd></td>
+                        <td><button onclick='delete1(${id});' class='delete'>Удалить</button></td>
+                    </tr>
+                    `;
+                    out += "</table>";
+                    $('#cartShop').append(out);
+                    
+                } else {
+                    var prise1 = $(`#qtynew${id}`).text();
+                    prise2 = Number(prise1) + Number(valueid);
+                    document.getElementById(`qtynew${id}`).innerHTML = prise2;
+                }
+            }
+            async function emptyCart(){
+                $('#cartShop').empty();
+            }
+            async function delete1(id) {
+                $(`#list${id}`).remove();
+            }
+            async function checkout() {
+                $('.pay').css({"display":"block"});
+                $('#order').empty();
+                $('#order').empty();
+                $('#order').empty();
+                $('#order').empty();
+                $('#order').empty();
+
+                $('#cash').empty();
+                var url = "api/product_service.php";
+                var request = await fetch(url);
+                var products = await request.json();
+
+                var total_price = 0
+
+                var total_price1 = 0
+                total_price1_2 = $('p').eq(0).text();
+                if (total_price1_2 != '') {
+                    dd = $('dd').eq(0).text();
+                    total_price1 = Number(total_price1_2)*Number(dd);
+                    total_price += total_price1;
+                }
+                var total_price1 = 0
+                total_price1_2 = $('p').eq(1).text();
+                if (total_price1_2 != '') {
+                    dd = $('dd').eq(1).text();
+                    total_price1 = Number(total_price1_2)*Number(dd);
+                    total_price += total_price1;
+                }
+                
+                var total_price1 = 0
+                total_price1_2 = $('p').eq(2).text();
+                if (total_price1_2 != '') {
+                    dd = $('dd').eq(2).text();
+                    total_price1 = Number(total_price1_2)*Number(dd);
+                    total_price += total_price1;
+                }
+                var total_price1 = 0
+                total_price1_2 = $('p').eq(3).text();
+                if (total_price1_2 != '') {
+                    dd = $('dd').eq(3).text();
+                    total_price1 = Number(total_price1_2)*Number(dd);
+                    total_price += total_price1;
+                }
+
+
+
+
+                $('#cash').text(total_price);
+
+                $('#cartShop').clone().appendTo('#order');
+                
+            }
+            $(document).mouseup(function (e) {
+                var container = $(".pay");
+                if (container.has(e.target).length === 0){
+                    $('.pay').css({"display":"none"});
+                }
+            });
+            function away() {
+                $('.pay').css({"display":"none"});
+            }
+        </script>
+    </body>
+</html>
