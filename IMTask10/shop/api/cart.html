@@ -1,0 +1,137 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        <style>
+            html {
+				
+				background-image: url(../images/cart.jpg);
+                background-size: cover;
+			}
+            button {
+                background: transparent;  
+            }
+            #buy_button {
+                margin-bottom: 20px;
+                background: transparent;   
+            }
+            #delete_button {
+                margin-bottom: 20px;
+                background: transparent;
+                
+            }
+            input {
+                border: none;
+                background: transparent;
+                width: 40px;
+                text-align: right;
+            }
+
+        </style>
+
+        <script>
+            function getTotal(carts) {
+                document.getElementById("buy_button").hidden = false;
+                total_qty = 0;
+                total_price = 0;
+                for([id, value] of Object.entries(carts)) {
+                    total_qty += Number(value.quantity);
+                    total_price += Number(value.quantity) * Number(value.price);
+                }
+                if (total_qty == 0){
+                    text = `Грустно и пусто :(`;
+                    document.getElementById("buy_button").hidden = true;
+                    document.getElementById("delete_button").hidden = true;
+                }
+                else{
+                    tot_pr = Math.round(Number(total_price)/100)*100;
+                    text =`Тут ${total_qty} шт. всякого примерно на ${tot_pr} ₽. Если точнее, то ${total_price} ₽`;
+                    document.getElementById("buy_button").hidden = false;
+                }
+                document.getElementById("storage").innerHTML = text
+
+            }
+
+            async function getCarts() {
+                var url = "cart_store.php";
+                var request = await fetch(url);
+                var carts = await request.json();
+                console.log(carts);
+                out = "<table>"
+                for([id, value] of Object.entries(carts)) {
+                    if (Number(value.quantity) != 0){
+                        out += `
+                            <tr>
+                                <td id="id_${id}">${value.name}</td>
+                                <td><input type = "number" value="${value.quantity}" id='qty_${id}'></td>
+                                <td>шт.</td>
+                                <td><button onclick='addToCart(${id})'>Докинуть по-братски</button></td>
+                                <td><button onclick='removeFromCart(${id})'>Удалить товар</button></td>
+                            </tr>
+                        `;
+                    }
+                }
+                out += "</table>"
+                    document.getElementById("display").innerHTML = out;
+
+                    getTotal(carts);
+            }
+
+            async function cartDeals(id, qty){
+                var url = `add_product_to_cart.php?id=${id}&qty=${qty}`;
+                console.log(url);
+                var request = await fetch(url);
+                var result = await request.json();
+            }
+
+            async function removeFromCart(id){
+                var qty = 0
+                await cartDeals(id, qty);
+                await getCarts();
+
+            }
+
+            async function removeAllFromCart(){
+                var qty = 0
+                var url = "cart_store.php";
+                var request = await fetch(url);
+                var carts = await request.json();
+                for([id] of Object.entries(carts)) {
+                        var url_id = `add_product_to_cart.php?id=${id}&qty=${qty}`;
+                        console.log(url_id);
+                        var request_id = await fetch(url_id);
+                    }
+                await getCarts();
+
+            }
+
+            async function addToCart(id) {
+                var qty = Number(document.getElementById(`qty_${id}`).value) + 1;
+                await cartDeals(id, qty);
+                await getCarts();
+            }
+
+            async function buy(){
+                var url = `add_to_DB.php`;
+                var response = await fetch(url);
+                var result = await response.json();
+                console.log(result);
+                await getCarts();
+                document.getElementById("bags").innerHTML = `Зачет за заказ! Добавлю его в какой-нибудь список`;
+                document.getElementById("storage").innerHTML = `Давай еще чего-нибудь закупим`;
+                    
+            }
+        
+            
+        </script>
+    </head>
+
+
+    <body onload="getCarts();">
+        <h1 id="bags">Это корзина</h1>
+        <div id="display"></div>
+        <h3 id="storage"></h3>
+        <button id="buy_button" onclick='buy()'>Купить</button></br>
+        <button id="delete_button" onclick='removeAllFromCart()'>Очистить корзину</button> </br>
+        <a href="../shop.html">Перейти в каталог товаров</a>
+    </body>
+</html>
