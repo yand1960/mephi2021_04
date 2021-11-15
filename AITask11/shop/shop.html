@@ -1,0 +1,228 @@
+<html>
+    <head>
+        <meta charset="utf-8"/>
+        <style>
+            td {
+                padding: 10px;
+            }
+            table input{
+                width: 50px;
+            }
+            body {background-color: rgb(236, 199, 243)}
+        </style>
+        
+    </head>
+    <body onload="getProducts()">
+        <h1>Делайте ваши покупки</h1>
+        <div id="display">
+          
+        </div>
+        <div id="basket">
+            <button class="basket" onclick='basket();'>Перейти к корзине</button>
+        </div>
+        <div class="shop">
+            <h2>Корзина</h2>
+            <div id="cartShop">
+            </div>
+            <button class="clean" onclick='clearCard();'>Очистить корзину</button>
+            <button class="buy" onclick='oformsCard();'>Оформить заказ</button>
+        </div>
+
+        <div class="b-popup">
+        <div class="b-popup-content">
+            <div id="popoformlen"></div>
+            <div>Итого: <span id="oplata"></span> руб.</div>
+            <button>Оплатить</button>
+        </div>
+        </div>
+    <style type="text/css">
+        .shop {
+            position: absolute;
+            top: 300;
+            right: 10%;
+            left: 10%;
+            background: rgb(191, 162, 211);
+            border-radius: 5px;
+            width: 80%;
+            height: auto;
+            margin-top: 25px;
+            margin-right: 25px;
+            display: none;
+
+        }
+        .shop h2 {
+            font-size: 16px;
+            text-align: center;
+            color: rgb(13, 17, 71);
+        }
+        #cartShop {
+            margin: 20px 20px 20px 20px;
+            color: rgb(13, 17, 71);
+        }
+        #cartShop td{
+            color: rgb(13, 17, 71);
+            width: 100px;
+        }
+        .clean{
+            color: rgb(13, 17, 71);
+            background: rgb(226, 97, 97);
+        }
+        .buy{
+            color: rgb(13, 17, 71);
+            background: rgb(134, 135, 231);
+        }
+        .b-popup{
+            width:100%;
+            min-height:100%;
+            background-color: rgba(0,0,0,0.5);
+            overflow:hidden;
+            position:fixed;
+            top:0px;
+            left: 0px;
+            display: none;
+        }
+        .b-popup .dq {
+            display: none;
+        }
+        .b-popup .b-popup-content{
+            margin:40px auto 0px auto;
+            width: 500px;
+            padding:10px;
+            background-color: #c5c5c5;
+            border-radius:5px;
+            box-shadow: 0px 0px 10px #000;
+        }
+    </style>
+<script
+  src="https://code.jquery.com/jquery-3.6.0.min.js"
+  integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+  crossorigin="anonymous"></script>
+    <script>
+            async function getProducts(){
+                var url = "api/product_service.php";
+                var request = await fetch(url);
+                var products = await request.json();
+                out = "<table>"
+                out += "<tr><td>Название</td><td>Цена</td><td>Количество</td><td></td></tr>"
+                console.log(products);
+                for(var i=0; i < products.length; i++){
+                    var id = i;
+                    var name = products[i][1]
+                    var price = products[i][2]
+                    console.log(name)
+                    out += `
+                    <tr>
+                        <td>${name}</td>
+                        <td>${price}</td>
+                        <td>
+                            <input type="number" min="1" value="1" id='qty${id}'>
+                        </td>
+                        <td>
+                            <button onclick='addToCart(${id});'>Добавить в корзину</button>
+                        </td>
+                    </tr>
+                    `;
+                }
+                out += "</table>"
+                document.getElementById("display").innerHTML = out;
+            }
+            async function addToCart(id){
+                var url = "api/product_service.php";
+                var request = await fetch(url);
+                var products = await request.json();
+                
+                var name = products[id][1]
+                var price = products[id][2]
+                var valuemp = document.getElementById(`qty${id}`).value;
+                proverks = document.getElementById(`${id}`);
+                if (proverks == null){
+                    out = `<table id='list${id}'>`
+                    out += `
+                    <tr id='${id}'>
+                        <td>Название:<br>${name}</td>
+                        <td>Цена:<br><p id='priseqwwweq'>${price}</p></td>
+                        <td>Количество:<br><dd id='koll${id}'>${valuemp}</dd></td>
+                        <td><button onclick='clearCardpos(${id});' class='dq'>Удалить</button></td>
+                    </tr>
+                    `;
+                    out += "</table>"
+                    $('#cartShop').append(out);
+                    alert("Товар успешно добавлен в корзину!");
+                } else {
+                    var priserNewfid = $(`#koll${id}`).text();
+                    priserNew = Number(priserNewfid) + Number(valuemp);
+                    document.getElementById(`koll${id}`).innerHTML = priserNew;
+                }
+            }
+            async function clearCard(){
+                $('#cartShop').empty();
+            }
+            async function clearCardpos(id) {
+                $(`#list${id}`).remove();
+            }
+            async function basket() {
+                $('.shop').css({"display":"inline"});
+                
+            }
+            async function oformsCard() {
+                $('.b-popup').css({"display":"block"});
+                $('#popoformlen').empty();
+                $('#popoformlen').empty();
+                $('#popoformlen').empty();
+                $('#popoformlen').empty();
+                $('#popoformlen').empty();
+
+                $('#oplata').empty();
+                var url = "api/product_service.php";
+                var request = await fetch(url);
+                var products = await request.json();
+
+                var fin_prises = 0
+
+                var itogone = 0
+                itogone_fid = $('p').eq(0).text();
+                if (itogone_fid != '') {
+                    qdone = $('dd').eq(0).text();
+                    itogone = Number(itogone_fid)*Number(qdone);
+                    fin_prises += itogone;
+                }
+                var itogty = 0
+                itogty_fid = $('p').eq(1).text();
+                if (itogty_fid != '') {
+                    qdty = $('dd').eq(1).text();
+                    itogty = Number(itogty_fid)*Number(qdty);
+                    fin_prises += itogty;
+                }
+                
+                var itogfri = 0
+                itogfri_fid = $('p').eq(2).text();
+                if (itogfri_fid != '') {
+                    qdfri = $('dd').eq(2).text();
+                    itogfri = Number(itogfri_fid)*Number(qdfri);
+                    fin_prises += itogfri;
+                }
+                var itogfo = 0
+                itogfo_fid = $('p').eq(3).text();
+                if (itogfo_fid != '') {
+                    qdfro = $('dd').eq(3).text();
+                    itogfo = Number(itogfo_fid)*Number(qdfro);
+                    fin_prises += itogfo;
+                }
+
+
+
+
+                $('#oplata').text(fin_prises);
+
+                $('#cartShop').clone().appendTo('#popoformlen');
+                
+            }
+            $(document).mouseup(function (e) {
+                var container = $(".b-popup");
+                if (container.has(e.target).length === 0){
+                    $('.b-popup').css({"display":"none"});
+                }
+            });
+        </script>
+    </body>
+</html>
