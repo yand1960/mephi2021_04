@@ -1,0 +1,50 @@
+<html>
+	<head>
+		<title>Hello</title>
+		<meta charset="utf-8" />
+		<link rel="stylesheet" href="styles/main.css" />
+		<style>
+			#player {
+				display: none;
+			}
+			
+			#cat:hover {
+				border: solid red 3px;
+			}
+		</style>
+		<script>
+			function saySmth() {
+				//alert("Clicked!");
+				console.log("Clicked!");
+				document.getElementById("hdr1").innerText = "Ура, меня кликнули!";
+				document.getElementById("hdr1").className = "greeting";
+			}
+			
+			function meow() {
+				document.getElementById("player").play();	
+			}
+			
+		</script>
+	</head>
+	<body>
+		<!-- Это комментарий -->
+		<h1 id="hdr1">Hello, world!</h1>
+		<p>ляля бубу</p>
+		<p>ляля бубу хохо</p>
+		<p>ляля бубу</p>
+		<a href="http://yand.dyndns.org/mephi2021_04">
+			Сайт учебной группы
+		</a> <br />
+		<a href="demo02.html">Page 1</a>
+		<p>
+			<img src="images/cat.jpg" style="width: 200px" 
+				onmouseover="meow();" id="cat" />
+			<br />
+			<button onclick="saySmth();">Click me</button>
+		</p>
+		<audio id="player" controls>
+			<source src="sounds/meow.mp3" type="audio/mpeg" />
+		</audio>
+		
+	</body>
+</html>
