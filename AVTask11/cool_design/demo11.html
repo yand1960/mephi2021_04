@@ -1,0 +1,64 @@
+<html>
+    <head>
+        <title>Cool</title>
+        <style>
+            div {
+                border: solid thin black;
+                height: 150px;
+                width: 150px;
+                margin: 5px;
+                display: inline-block;
+                border-radius: 10px;
+            }
+
+            #div1 {
+                background: linear-gradient(45deg, white, red);
+            }
+
+            #div2 {
+                width: 100px ;
+                height: 100px ;
+                vertical-align: top;
+                background: linear-gradient(45deg, white, #AAAAFF);
+                transition-property: transform;
+                transition-duration: 1s;
+            }
+
+            #div2:hover {
+                transform: rotate(405deg);
+                transition-property: transform;
+                transition-duration: 1s;
+            }
+
+            #div3 {
+                background: radial-gradient( blue, red);
+                transform: translate(0px);
+                transition-property: transform;
+                transition-duration: 1s;
+            }
+        </style>
+        <script>
+            var div3_x = 0;
+            var tm;
+
+            function move() {
+                div3_x += 30;
+                document.getElementById("div3").style.transform
+                             =`translate(${div3_x}px)`;
+                if (tm != null)
+                    window.clearTimeout(tm);
+                tm = window.setTimeout(function(){
+                    div3_x = 0;
+                    document.getElementById("div3").style.transform
+                             =`translate(${div3_x}px)`;
+                }, 10000);
+            }
+        </script>
+    </head>
+    <body>
+        <h1>Cool design</h1>
+        <div id="div1"></div>
+        <div id="div2"></div>
+        <div id="div3" onclick="move();"></div>
+    </body>
+</html>
